@@ -1,8 +1,8 @@
 local grid = {}
 
-grid.size = 40
-grid.width = 11
-grid.height = 11
+grid.size = 50
+grid.width = 9
+grid.height = 9
 
 function grid.init()
   grid.world = lib.bump.newWorld(grid.size)

@@ -54,14 +54,14 @@ function love.keypressed(key)
     if key == 'left' then
       app.grid.animating = true
       lib.flux.to(app.grid, .25, { angle = app.grid.angle - math.pi / 2 })
-        :ease('quartout')
+        :ease('backout')
         :oncomplete(function()
           app.grid.animating = false
         end)
     elseif key == 'right' then
       app.grid.animating = true
       lib.flux.to(app.grid, .25, { angle = app.grid.angle + math.pi / 2 })
-        :ease('quartout')
+        :ease('backout')
         :oncomplete(function()
           app.grid.animating = false
         end)
