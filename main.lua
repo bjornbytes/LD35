@@ -6,8 +6,9 @@ require 'lib/util'
 _ = lib.lume
 g = love.graphics
 
+screenshake = 0
+
 function love.load()
-  print('load')
   app.grid.init()
   app.region.init()
   app.queue:init()
@@ -19,6 +20,8 @@ function love.update(dt)
   app.region:update(dt)
   app.queue:update(dt)
   app.blocks:update(dt)
+
+  screenshake = math.max(screenshake - dt, 0)
 end
 
 function love.draw()
@@ -31,7 +34,9 @@ function love.draw()
   g.rotate(app.grid.angle)
   g.translate(-g.getWidth() / 2, -g.getHeight() / 2)
 
-  g.translate(x, y)
+  local xx = x + screenshake * love.math.random() * 80 * (love.math.random() < .5 and 1 or -1)
+  local yy = y + screenshake * love.math.random() * 80 * (love.math.random() < .5 and 1 or -1)
+  g.translate(xx, yy)
 
   app.grid:draw()
   app.blocks:drawStatic()
@@ -50,21 +55,21 @@ function love.draw()
 end
 
 function love.keypressed(key)
-  if not app.grid.animating then
-    if key == 'left' then
-      app.grid.animating = true
-      lib.flux.to(app.grid, .25, { angle = app.grid.angle - math.pi / 2 })
-        :ease('backout')
-        :oncomplete(function()
-          app.grid.animating = false
-        end)
-    elseif key == 'right' then
-      app.grid.animating = true
-      lib.flux.to(app.grid, .25, { angle = app.grid.angle + math.pi / 2 })
-        :ease('backout')
-        :oncomplete(function()
-          app.grid.animating = false
-        end)
-    end
+  if key == 'left' then
+    app.grid.animating = true
+    app.grid.targetAngle = (app.grid.targetAngle or app.grid.angle) - math.pi / 2
+    lib.flux.to(app.grid, .25, { angle = app.grid.targetAngle })
+      :ease('backout')
+      :oncomplete(function()
+        app.grid.animating = false
+      end)
+  elseif key == 'right' then
+    app.grid.animating = true
+    app.grid.targetAngle = (app.grid.targetAngle or app.grid.angle) + math.pi / 2
+    lib.flux.to(app.grid, .25, { angle = app.grid.targetAngle })
+      :ease('backout')
+      :oncomplete(function()
+        app.grid.animating = false
+      end)
   end
 end

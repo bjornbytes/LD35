@@ -1,6 +1,6 @@
 local grid = {}
 
-grid.size = 50
+grid.size = 100
 grid.width = 9
 grid.height = 9
 

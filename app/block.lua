@@ -1,13 +1,14 @@
 local block = class()
 
-block.colors = { 'orange', 'purple', 'green' }
+block.colors = { 'orange', 'purple', 'green', 'red' }
 block.images = {
+  red = art.redblock,
   orange = art.orangeblock,
   purple = art.purpleblock,
   green = art.greenblock
 }
 
-block.speed = 600
+block.speed = 2000
 block.delay = 1
 
 function block:init(color)
@@ -57,8 +58,10 @@ function block:update(dt)
       app.grid.world:add(self, self.x + 4, self.y + 4, app.grid.size - 8, app.grid.size - 8)
       self.gridX = math.round(self.x / app.grid.size)
       self.gridY = math.round(self.y / app.grid.size)
+      self.angle = math.round(self.angle / (math.pi / 2)) * (math.pi / 2) + love.math.randomNormal(.05)
       app.grid:setBlock(self.gridX, self.gridY, self)
       app.blocks:matchPattern()
+      screenshake = .1
     end
   else
     self:setPosition()

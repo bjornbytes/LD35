@@ -1,5 +1,5 @@
 local queue = {}
-queue.rate = .5
+queue.rate = 2
 queue.capacity = 3
 
 function queue:init()

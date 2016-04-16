@@ -14,19 +14,6 @@ function blocks:remove(block)
 
   app.grid:removeBlock(block.gridX, block.gridY)
   self.list[block] = nil
-
-  local quadrant = tostring(block.x < app.region.x1 * app.grid.size) .. ':' .. tostring(block.y < app.region.y1 * app.grid.size)
-
-  _.each(self.list, function(other)
-    if other.static then
-      if block:isOnSameSide(other) then
-        other.originalAngle = block.originalAngle
-      end
-      other.static = false
-      app.grid.world:remove(other)
-      app.grid:removeBlock(other.gridX, other.gridY)
-    end
-  end)
 end
 
 function blocks:update(dt)
