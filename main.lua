@@ -57,14 +57,6 @@ function love.keypressed(key)
         :ease('quartout')
         :oncomplete(function()
           app.grid.animating = false
-          _.each(app.blocks.list, function(block)
-            if block.static then
-              block.static = false
-              block.angle = app.grid.angle - math.pi / 2
-              app.grid.world:remove(block)
-              app.grid:removeBlock(block.gridX, block.gridY)
-            end
-          end)
         end)
     elseif key == 'right' then
       app.grid.animating = true
@@ -72,14 +64,6 @@ function love.keypressed(key)
         :ease('quartout')
         :oncomplete(function()
           app.grid.animating = false
-          _.each(app.blocks.list, function(block)
-            if block.static then
-              block.static = false
-              block.angle = app.grid.angle + math.pi / 2
-              app.grid.world:remove(block)
-              app.grid:removeBlock(block.gridX, block.gridY)
-            end
-          end)
         end)
     end
   end

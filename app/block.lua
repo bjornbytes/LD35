@@ -1,9 +1,10 @@
 local block = class()
 
-block.colors = { 'orange', 'purple' }
+block.colors = { 'orange', 'purple', 'green' }
 block.images = {
   orange = art.orangeblock,
-  purple = art.purpleblock
+  purple = art.purpleblock,
+  green = art.greenblock
 }
 
 block.speed = 600
