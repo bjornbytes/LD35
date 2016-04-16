@@ -30,12 +30,6 @@ function grid:draw()
       g.line(0, y * grid.size, grid.width * grid.size, y * grid.size)
     end
   end
-
-  g.setLineWidth(2)
-  g.setColor(255, 255, 255, 80)
-  g.rectangle('line', 0, 0, self.width * self.size, self.height * self.size)
-
-  g.setLineWidth(1)
 end
 
 function grid:cell(x, y)
