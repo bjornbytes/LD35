@@ -28,11 +28,7 @@ function blocks:drawDynamic()
 end
 
 function blocks:matchPattern()
-  do
-    return
-  end
-
-  print('---')
+  --[[print('---')
   for x = 0, app.grid.width do
     io.write('|')
     for y = 0, app.grid.height do
@@ -45,57 +41,57 @@ function blocks:matchPattern()
     end
     io.write('|\n')
   end
-  print('---')
+  print('---')]]
 
-  for x = 0, app.grid.width do
-    for y = 0, app.grid.height do
-      local block = app.grid:getBlock(x, y)
-
-      if block then
-        do
-          local candidates = {}
-
-          local xx = x + 1
-          while xx <= app.grid.width do
-            local other = app.grid:getBlock(xx, y)
-            if not other or other.color ~= block.color then
-              if #candidates >= 3 then
-                print('pattern')
-                for i = 1, #candidates do
-                  self:remove(candidates[i])
-                end
-              end
-              break
-            else
-              table.insert(candidates, other)
-            end
-            xx = xx + 1
-          end
-        end
-
-        do
-          local candidates = {}
-
-          local yy = y + 1
-          while yy <= app.grid.height do
-            local other = app.grid:getBlock(x, yy)
-            if not other or other.color ~= block.color then
-              if #candidates >= 3 then
-                print('pattern')
-                for i = 1, #candidates do
-                  self:remove(candidates[i])
-                end
-              end
-              break
-            else
-              table.insert(candidates, other)
-            end
-            yy = yy + 1
-          end
+  for x = 0, app.grid.width + 1 do
+    for y = 0, app.grid.height + 1 do
+      local group = self:getGroup(x, y)
+      if #group >= 3 then
+        for i = 1, #group do
+          self:remove(group[i])
         end
       end
+      io.write(#self:getGroup(x, y) .. ' ')
+    end
+    io.write('\n')
+  end
+  io.write('\n')
+end
+
+function blocks:getGroup(x, y)
+  local block = app.grid:getBlock(x, y)
+
+  if not block then return {} end
+
+  local candidates = _.filter({
+    app.grid:getBlock(x - 1, y),
+    app.grid:getBlock(x + 1, y),
+    app.grid:getBlock(x, y - 1),
+    app.grid:getBlock(x, y + 1)
+  }, function(x) return x end)
+
+  local matches = {}
+  local visited = {}
+
+  while #candidates > 0 do
+    local candidate = table.remove(candidates)
+    visited[candidate] = true
+    if candidate.color == block.color then
+      table.insert(matches, candidate)
+      local neighbors = _.filter({
+        app.grid:getBlock(candidate.gridX - 1, candidate.gridY),
+        app.grid:getBlock(candidate.gridX + 1, candidate.gridY),
+        app.grid:getBlock(candidate.gridX, candidate.gridY - 1),
+        app.grid:getBlock(candidate.gridX, candidate.gridY + 1)
+      })
+      candidates = _.concat(candidates, neighbors)
+      candidates = _.filter(candidates, function(c)
+        return not visited[c]
+      end)
     end
   end
+
+  return matches
 end
 
 return blocks
