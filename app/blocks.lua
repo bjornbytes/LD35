@@ -43,8 +43,8 @@ function blocks:matchPattern()
   end
   print('---')]]
 
-  for x = 0, app.grid.width + 1 do
-    for y = 0, app.grid.height + 1 do
+  for x = 0, app.grid.width do
+    for y = 0, app.grid.height do
       local group = self:getGroup(x, y)
       if #group >= 3 then
         for i = 1, #group do
@@ -64,14 +64,14 @@ function blocks:getGroup(x, y)
   if not block then return {} end
 
   local candidates = _.filter({
-    app.grid:getBlock(x - 1, y),
-    app.grid:getBlock(x + 1, y),
-    app.grid:getBlock(x, y - 1),
-    app.grid:getBlock(x, y + 1)
+    left = app.grid:getBlock(x - 1, y),
+    right = app.grid:getBlock(x + 1, y),
+    up = app.grid:getBlock(x, y - 1),
+    down = app.grid:getBlock(x, y + 1)
   }, function(x) return x end)
 
-  local matches = {}
-  local visited = {}
+  local matches = {block}
+  local visited = {[block] = true}
 
   while #candidates > 0 do
     local candidate = table.remove(candidates)
@@ -79,11 +79,11 @@ function blocks:getGroup(x, y)
     if candidate.color == block.color then
       table.insert(matches, candidate)
       local neighbors = _.filter({
-        app.grid:getBlock(candidate.gridX - 1, candidate.gridY),
-        app.grid:getBlock(candidate.gridX + 1, candidate.gridY),
-        app.grid:getBlock(candidate.gridX, candidate.gridY - 1),
-        app.grid:getBlock(candidate.gridX, candidate.gridY + 1)
-      })
+        left = app.grid:getBlock(candidate.gridX - 1, candidate.gridY),
+        right = app.grid:getBlock(candidate.gridX + 1, candidate.gridY),
+        up = app.grid:getBlock(candidate.gridX, candidate.gridY - 1),
+        down = app.grid:getBlock(candidate.gridX, candidate.gridY + 1)
+      }, function(x) return x end)
       candidates = _.concat(candidates, neighbors)
       candidates = _.filter(candidates, function(c)
         return not visited[c]
