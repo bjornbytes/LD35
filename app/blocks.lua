@@ -13,6 +13,15 @@ function blocks:remove(block)
   end
   app.grid:removeBlock(block.gridX, block.gridY)
   self.list[block] = nil
+
+  _.each(self.list, function(block)
+    if block.static then
+      block.static = false
+      block.angle = math.round(_.angle(app.grid.width / 2 * app.grid.size, app.grid.height / 2 * app.grid.size, block.x, block.y) / (math.pi / 2)) * (math.pi / 2)
+      app.grid.world:remove(block)
+      app.grid:removeBlock(block.gridX, block.gridY)
+    end
+  end)
 end
 
 function blocks:update(dt)
