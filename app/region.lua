@@ -8,7 +8,7 @@ function region:init()
 end
 
 function region:update()
-  if not next(app.blocks.list) then return end
+  if not next(_.filter(app.blocks.list, 'static')) then return end
 
   local function setBounds(regionSize)
     region.x1 = math.floor(app.grid.width / 2) - (regionSize - 1)

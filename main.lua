@@ -10,12 +10,14 @@ function love.load()
   print('load')
   app.grid.init()
   app.region.init()
+  app.queue:init()
 end
 
 function love.update(dt)
   lib.flux.update(dt)
   app.grid:update(dt)
   app.region:update(dt)
+  app.queue:update(dt)
   app.blocks:update(dt)
 end
 
@@ -43,12 +45,12 @@ function love.draw()
   app.region:draw()
 
   g.pop()
+
+  app.queue:draw()
 end
 
 function love.keypressed(key)
-  if key == 'space' then
-    app.blocks:add()
-  elseif key == 'left' then
+  if key == 'left' then
     app.grid.targetAngle = app.grid.targetAngle - math.pi / 2
   elseif key == 'right' then
     app.grid.targetAngle = app.grid.targetAngle + math.pi / 2

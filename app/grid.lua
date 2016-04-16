@@ -1,6 +1,6 @@
 local grid = {}
 
-grid.size = 30
+grid.size = 40
 grid.width = 11
 grid.height = 11
 
@@ -8,6 +8,7 @@ function grid.init()
   grid.world = lib.bump.newWorld(grid.size)
   grid.angle = 0
   grid.targetAngle = grid.angle
+  grid.blocks = {}
 end
 
 function grid:update(dt)
@@ -40,6 +41,21 @@ end
 
 function grid:pos(x, y)
   return math.floor(x) * grid.size, math.floor(y) * grid.size
+end
+
+function grid:setBlock(x, y, block)
+  local node = tostring(x) .. ':' .. tostring(y)
+  self.blocks[node] = block
+end
+
+function grid:getBlock(x, y)
+  local node = tostring(x) .. ':' .. tostring(y)
+  return self.blocks[node]
+end
+
+function grid:removeBlock(x, y)
+  local node = tostring(x) .. ':' .. tostring(y)
+  self.blocks[node] = nil
 end
 
 return grid

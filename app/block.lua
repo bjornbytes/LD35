@@ -1,19 +1,21 @@
 local block = class()
 
-block.colors = {
-  red = {255, 50, 50},
-  blue = {50, 50, 255}
+block.colors = { 'orange', 'purple' }
+block.images = {
+  orange = art.orangeblock,
+  purple = art.purpleblock
 }
 
-block.speed = 500
+block.speed = 600
+block.delay = 1
 
-function block:init()
+function block:init(color)
   self.rx = love.math.random(app.region.x1, app.region.x2 - 1) * app.grid.size
   self.ry = love.math.random(app.region.y1, app.region.y2 - 1) * app.grid.size
 
   self.angle = math.floor(love.math.random() * 2 * math.pi / (math.pi / 2)) * (math.pi / 2)
-  self.timer = 2
-  self.color = _.randomchoice(_.keys(block.colors))
+  self.timer = self.delay
+  self.color = color
 
   self.scale = 0
   lib.flux.to(self, .3, { scale = 1 }):ease('backout')
@@ -42,6 +44,10 @@ function block:update(dt)
 
       self.static = true
       app.grid.world:add(self, self.x + 4, self.y + 4, app.grid.size - 8, app.grid.size - 8)
+      self.gridX = math.round(self.x / app.grid.size)
+      self.gridY = math.round(self.y / app.grid.size)
+      app.grid:setBlock(self.gridX, self.gridY, self)
+      app.blocks:matchPattern()
     end
   else
     self:setPosition()
@@ -58,9 +64,12 @@ function block:draw()
     g.translate(-(self.x + gridSize / 2), -(self.y + gridSize / 2))
   end
 
-  g.setColor(self.colors[self.color])
   local size = app.grid.size * self.scale
-  g.rectangle('fill', self.x + gridSize / 2 - size / 2, self.y + gridSize / 2 - size / 2, size, size)
+  local image = self.images[self.color]
+  local scale = size / image:getWidth()
+  local angle = self.static and (self.angle) or self.angle
+  g.setColor(255, 255, 255)
+  g.draw(image, self.x + gridSize / 2, self.y + gridSize / 2, angle, scale, scale, image:getWidth() / 2, image:getHeight() / 2)
 
   if not self.static then
     g.setColor(255, 255, 255)
