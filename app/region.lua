@@ -5,9 +5,16 @@ function region:init()
   region.y1 = math.floor(app.grid.height / 2) - 0
   region.x2 = math.floor(app.grid.width / 2) + 1
   region.y2 = math.floor(app.grid.height / 2) + 1
+
+  region.display = {
+    x1 = region.x1,
+    y1 = region.y1,
+    x2 = region.x2,
+    y2 = region.y2
+  }
 end
 
-function region:update()
+function region:update(dt)
   if not next(_.filter(app.blocks.list, 'static')) then return end
 
   local function setBounds(regionSize)
@@ -23,11 +30,15 @@ function region:update()
   repeat
     regionSize = regionSize + 1
     setBounds(regionSize)
-  until #(app.grid.world:queryRect(region.x1 * s, region.y1 * s, (region.x2 - region.x1) * s, (region.y2 - region.y1) * s)) > 0
-    or regionSize > app.grid.width
+  until #(app.grid.world:queryRect(region.x1 * s, region.y1 * s, (region.x2 - region.x1) * s, (region.y2 - region.y1) * s)) > 0 or regionSize > app.grid.width
 
   regionSize = regionSize - 1
   setBounds(regionSize)
+
+  region.display.x1 = _.lerp(region.display.x1, region.x1, dt * 10)
+  region.display.y1 = _.lerp(region.display.y1, region.y1, dt * 10)
+  region.display.x2 = _.lerp(region.display.x2, region.x2, dt * 10)
+  region.display.y2 = _.lerp(region.display.y2, region.y2, dt * 10)
 
   if regionSize == 0 then
     print('you lose')
@@ -37,9 +48,9 @@ end
 
 function region:draw()
   g.setColor(255, 255, 255, 80)
-  local w = (region.x2 - region.x1) * app.grid.size
-  local h = (region.y2 - region.y1) * app.grid.size
-  g.rectangle('fill', region.x1 * app.grid.size, region.y1 * app.grid.size, w, h)
+  local w = (region.display.x2 - region.display.x1) * app.grid.size
+  local h = (region.display.y2 - region.display.y1) * app.grid.size
+  g.rectangle('fill', region.display.x1 * app.grid.size, region.display.y1 * app.grid.size, w, h)
 end
 
 return region

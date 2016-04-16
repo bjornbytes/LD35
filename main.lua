@@ -7,6 +7,7 @@ _ = lib.lume
 g = love.graphics
 
 screenshake = 0
+tick = 1
 
 function love.load()
   app.grid.init()
@@ -15,6 +16,7 @@ function love.load()
 end
 
 function love.update(dt)
+  tick = tick + 1
   lib.flux.update(dt)
   app.grid:update(dt)
   app.region:update(dt)

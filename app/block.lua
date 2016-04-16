@@ -21,9 +21,10 @@ function block:init(color)
   self.color = color
   self.wasStatic = false
   self.originalAngle = self.angle
+  self.arrowFactor = 0
 
   self.scale = 0
-  lib.flux.to(self, .3, { scale = 1 }):ease('backout')
+  lib.flux.to(self, .3, { scale = 1, arrowFactor = 1 }):ease('backout')
 
   self.static = false
 end
@@ -31,8 +32,11 @@ end
 function block:update(dt)
   if self.static then return end
 
-  if not app.grid.animating then
+  if not app.grid.animating and self.timer > 0 then
     self.timer = math.max(self.timer - dt, 0)
+    if self.timer <= 0 then
+      lib.flux.to(self, .3, { arrowFactor = 0 }):ease('backin')
+    end
   end
 
   self.angle = self.originalAngle - app.grid.angle
@@ -92,13 +96,14 @@ function block:draw()
   g.setColor(255, 255, 255)
   g.draw(image, cx, cy, angle, scale, scale, image:getWidth() / 2, image:getHeight() / 2)
 
-  if not self.static then
-    g.setColor(255, 255, 255)
-    local x2 = self.x + gridSize / 2 + math.dx(size, angle)
-    local y2 = self.y + gridSize / 2 + math.dy(size, angle)
-    g.setLineWidth(8)
-    g.line(self.x + gridSize / 2, self.y + gridSize / 2, x2, y2)
-    g.setLineWidth(1)
+  if self.arrowFactor > 0 then
+    local x = self.x + gridSize / 2 + math.dx(size, angle)
+    local y = self.y + gridSize / 2 + math.dy(size, angle)
+    local image = art.arrow
+    local scale = (60 / image:getWidth()) * self.arrowFactor
+    scale = scale * (1 + math.sin(tick / 10) / 10)
+    g.setColor(255, 255, 200, 255 * _.clamp(self.arrowFactor, 0, 1))
+    g.draw(image, x, y, self.angle + app.grid.angle, scale, scale, image:getWidth() / 2, image:getHeight() / 2)
   end
 
   if self.timer > 0 then
