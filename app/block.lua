@@ -28,7 +28,7 @@ function block:update(dt)
 
   self.timer = math.max(self.timer - dt, 0)
 
-  if self.timer <= 0 and math.abs(math.anglediff(app.grid.angle, app.grid.targetAngle)) < .01 then
+  if self.timer <= 0 and not app.grid.animating then
     self.x = self.x + math.dx(self.speed * dt, self.angle - app.grid.angle)
     self.y = self.y + math.dy(self.speed * dt, self.angle - app.grid.angle)
 

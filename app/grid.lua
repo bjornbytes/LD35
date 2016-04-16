@@ -7,12 +7,11 @@ grid.height = 11
 function grid.init()
   grid.world = lib.bump.newWorld(grid.size)
   grid.angle = 0
-  grid.targetAngle = grid.angle
   grid.blocks = {}
 end
 
 function grid:update(dt)
-  grid.angle = math.anglerp(grid.angle, grid.targetAngle, math.min(10 * dt, 1))
+  --grid.angle = math.anglerp(grid.angle, grid.targetAngle, math.min(10 * dt, 1))
 end
 
 function grid:draw()

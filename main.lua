@@ -50,9 +50,37 @@ function love.draw()
 end
 
 function love.keypressed(key)
-  if key == 'left' then
-    app.grid.targetAngle = app.grid.targetAngle - math.pi / 2
-  elseif key == 'right' then
-    app.grid.targetAngle = app.grid.targetAngle + math.pi / 2
+  if not app.grid.animating then
+    if key == 'left' then
+      app.grid.animating = true
+      lib.flux.to(app.grid, .25, { angle = app.grid.angle - math.pi / 2 })
+        :ease('quartout')
+        :oncomplete(function()
+          app.grid.animating = false
+          _.each(app.blocks.list, function(block)
+            if block.static then
+              block.static = false
+              block.angle = app.grid.angle - math.pi / 2
+              app.grid.world:remove(block)
+              app.grid:removeBlock(block.gridX, block.gridY)
+            end
+          end)
+        end)
+    elseif key == 'right' then
+      app.grid.animating = true
+      lib.flux.to(app.grid, .25, { angle = app.grid.angle + math.pi / 2 })
+        :ease('quartout')
+        :oncomplete(function()
+          app.grid.animating = false
+          _.each(app.blocks.list, function(block)
+            if block.static then
+              block.static = false
+              block.angle = app.grid.angle + math.pi / 2
+              app.grid.world:remove(block)
+              app.grid:removeBlock(block.gridX, block.gridY)
+            end
+          end)
+        end)
+    end
   end
 end
