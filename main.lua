@@ -25,6 +25,9 @@ function love.update(dt)
 end
 
 function love.draw()
+  g.setColor(50, 50, 50)
+  g.rectangle('fill', 0, 0, g.getDimensions())
+
   local x = g.getWidth() / 2 - (app.grid.width * app.grid.size) / 2
   local y = g.getHeight() / 2 - (app.grid.height * app.grid.size) / 2
 
@@ -39,15 +42,26 @@ function love.draw()
   g.translate(xx, yy)
 
   app.grid:draw()
-  app.blocks:drawStatic()
-  app.blocks:drawDynamic()
 
   g.pop()
   g.push()
-
   g.translate(x, y)
-
   app.region:draw()
+
+  g.pop()
+
+  g.push()
+
+  g.translate(g.getWidth() / 2, g.getHeight() / 2)
+  g.rotate(app.grid.angle)
+  g.translate(-g.getWidth() / 2, -g.getHeight() / 2)
+
+  local xx = x + screenshake * love.math.random() * 80 * (love.math.random() < .5 and 1 or -1)
+  local yy = y + screenshake * love.math.random() * 80 * (love.math.random() < .5 and 1 or -1)
+  g.translate(xx, yy)
+
+  app.blocks:drawStatic()
+  app.blocks:drawDynamic()
 
   g.pop()
 
@@ -55,7 +69,14 @@ function love.draw()
 end
 
 function love.keypressed(key)
-  if key == 'left' then
+  local blockIsMoving
+  _.each(app.blocks.list, function(block)
+    if not block.static and block.timer <= 0 then
+      blockIsMoving = true
+    end
+  end)
+
+  if key == 'left' and not blockIsMoving then
     app.grid.animating = true
     app.grid.targetAngle = (app.grid.targetAngle or app.grid.angle) - math.pi / 2
     lib.flux.to(app.grid, .25, { angle = app.grid.targetAngle })
@@ -63,7 +84,7 @@ function love.keypressed(key)
       :oncomplete(function()
         app.grid.animating = false
       end)
-  elseif key == 'right' then
+  elseif key == 'right' and not blockIsMoving then
     app.grid.animating = true
     app.grid.targetAngle = (app.grid.targetAngle or app.grid.angle) + math.pi / 2
     lib.flux.to(app.grid, .25, { angle = app.grid.targetAngle })
@@ -71,5 +92,9 @@ function love.keypressed(key)
       :oncomplete(function()
         app.grid.animating = false
       end)
+  elseif key == 'space' then
+    _.each(app.blocks.list, function(block)
+      block.timer = 0
+    end)
   end
 end

@@ -29,21 +29,6 @@ function blocks:drawDynamic()
 end
 
 function blocks:matchPattern()
-  --[[print('---')
-  for x = 0, app.grid.width do
-    io.write('|')
-    for y = 0, app.grid.height do
-      local block = app.grid:getBlock(x, y)
-      if block then
-        io.write(block.color == 'purple' and 'P' or 'O')
-      else
-        io.write(' ')
-      end
-    end
-    io.write('|\n')
-  end
-  print('---')]]
-
   for x = 0, app.grid.width do
     for y = 0, app.grid.height do
       local group = self:getGroup(x, y)
@@ -52,17 +37,16 @@ function blocks:matchPattern()
           self:remove(group[i])
         end
       end
-      io.write(#self:getGroup(x, y) .. ' ')
     end
-    io.write('\n')
   end
-  io.write('\n')
 end
 
 function blocks:getGroup(x, y)
   local block = app.grid:getBlock(x, y)
 
   if not block then return {} end
+
+  local color = block.color
 
   local candidates = _.filter({
     left = app.grid:getBlock(x - 1, y),
@@ -76,8 +60,12 @@ function blocks:getGroup(x, y)
 
   while #candidates > 0 do
     local candidate = table.remove(candidates)
+    if color == 'gem' then
+      color = candidate.color
+    end
+
     visited[candidate] = true
-    if candidate.color == block.color then
+    if candidate.color == color then
       table.insert(matches, candidate)
       local neighbors = _.filter({
         left = app.grid:getBlock(candidate.gridX - 1, candidate.gridY),

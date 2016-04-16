@@ -1,11 +1,12 @@
 local block = class()
 
-block.colors = { 'orange', 'purple', 'green', 'red' }
+block.colors = { orange = 3, purple = 3, green = 3, red = 3, gem = 2 }
 block.images = {
   red = art.redblock,
   orange = art.orangeblock,
   purple = art.purpleblock,
-  green = art.greenblock
+  green = art.greenblock,
+  gem = art.gem
 }
 
 block.speed = 2000
@@ -30,7 +31,9 @@ end
 function block:update(dt)
   if self.static then return end
 
-  self.timer = math.max(self.timer - dt, 0)
+  if not app.grid.animating then
+    self.timer = math.max(self.timer - dt, 0)
+  end
 
   self.angle = self.originalAngle - app.grid.angle
 
@@ -55,10 +58,10 @@ function block:update(dt)
 
       self.static = true
       self.wasStatic = true
-      app.grid.world:add(self, self.x + 4, self.y + 4, app.grid.size - 8, app.grid.size - 8)
+      app.grid.world:add(self, self.x + 16, self.y + 16, app.grid.size - 32, app.grid.size - 32)
       self.gridX = math.round(self.x / app.grid.size)
       self.gridY = math.round(self.y / app.grid.size)
-      self.angle = math.round(self.angle / (math.pi / 2)) * (math.pi / 2) + love.math.randomNormal(.05)
+      self.angle = math.round(self.angle / (math.pi / 2)) * (math.pi / 2)
       app.grid:setBlock(self.gridX, self.gridY, self)
       app.blocks:matchPattern()
       screenshake = .1

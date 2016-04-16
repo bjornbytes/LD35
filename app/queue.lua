@@ -46,7 +46,7 @@ function queue:fill()
 end
 
 function queue:addItem()
-  local color = _.randomchoice(app.block.colors)
+  local color = _.weightedchoice(app.block.colors)
   table.insert(self.items, { color = color })
 end
 

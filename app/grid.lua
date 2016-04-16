@@ -17,6 +17,10 @@ end
 function grid:draw()
   g.setColor(255, 255, 255)
 
+  local image = art.bg1
+  local scale = (grid.width * grid.size) / image:getWidth()
+  g.draw(image, 0, 0, 0, scale, scale)
+
   if love.keyboard.isDown('`') then
     for x = 0, grid.width do
       g.line(x * grid.size, 0, x * grid.size, grid.height * grid.size)
