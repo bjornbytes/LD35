@@ -28,6 +28,11 @@ function region:update()
 
   regionSize = regionSize - 1
   setBounds(regionSize)
+
+  if regionSize == 0 then
+    print('you lose')
+    love.event.quit()
+  end
 end
 
 function region:draw()
