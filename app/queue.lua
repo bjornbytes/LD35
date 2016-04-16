@@ -1,5 +1,5 @@
 local queue = {}
-queue.rate = 1.5
+queue.rate = 2
 queue.capacity = 3
 
 function queue:init()
@@ -14,6 +14,10 @@ function queue:update(dt)
   if self.timer == 0 then
     self:generate()
     self:fill()
+  end
+
+  if self.rate > 1 then
+    self.rate = self.rate - (dt / 60)
   end
 end
 
@@ -38,12 +42,12 @@ function queue:fill()
   while #self.items < self.capacity do
     self:addItem()
   end
+  self.timer = self.rate
 end
 
 function queue:addItem()
-  local color = _.randomchoice(app.block.colors)
+  local color = _.weightedchoice(app.block.colors)
   table.insert(self.items, { color = color })
-  self.timer = self.rate
 end
 
 return queue

@@ -39,7 +39,7 @@ function region:draw()
   g.setColor(255, 255, 255, 80)
   local w = (region.x2 - region.x1) * app.grid.size
   local h = (region.y2 - region.y1) * app.grid.size
-  g.rectangle('line', region.x1 * app.grid.size, region.y1 * app.grid.size, w, h)
+  g.rectangle('fill', region.x1 * app.grid.size, region.y1 * app.grid.size, w, h)
 end
 
 return region

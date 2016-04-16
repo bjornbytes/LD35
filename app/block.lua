@@ -1,12 +1,15 @@
 local block = class()
 
-block.colors = { 'orange', 'purple' }
+block.colors = { orange = 3, purple = 3, green = 3, red = 3, gem = 2 }
 block.images = {
+  red = art.redblock,
   orange = art.orangeblock,
-  purple = art.purpleblock
+  purple = art.purpleblock,
+  green = art.greenblock,
+  gem = art.gem
 }
 
-block.speed = 600
+block.speed = 2000
 block.delay = 1
 
 function block:init(color)
@@ -16,6 +19,8 @@ function block:init(color)
   self.angle = math.floor(love.math.random() * 2 * math.pi / (math.pi / 2)) * (math.pi / 2)
   self.timer = self.delay
   self.color = color
+  self.wasStatic = false
+  self.originalAngle = self.angle
 
   self.scale = 0
   lib.flux.to(self, .3, { scale = 1 }):ease('backout')
@@ -26,11 +31,20 @@ end
 function block:update(dt)
   if self.static then return end
 
-  self.timer = math.max(self.timer - dt, 0)
+  if not app.grid.animating then
+    self.timer = math.max(self.timer - dt, 0)
+  end
 
-  if self.timer <= 0 and math.abs(math.anglediff(app.grid.angle, app.grid.targetAngle)) < .01 then
-    self.x = self.x + math.dx(self.speed * dt, self.angle - app.grid.angle)
-    self.y = self.y + math.dy(self.speed * dt, self.angle - app.grid.angle)
+  self.angle = self.originalAngle - app.grid.angle
+
+  if self.timer <= 0 and not app.grid.animating then
+    if wasStatic then
+      self.x = self.x + math.dx(self.speed * dt, self.angle)
+      self.y = self.y + math.dy(self.speed * dt, self.angle)
+    else
+      self.x = self.x + math.dx(self.speed * dt, self.angle)
+      self.y = self.y + math.dy(self.speed * dt, self.angle)
+    end
 
     local hasCollision = false
 
@@ -43,11 +57,14 @@ function block:update(dt)
       self.y = math.round(self.y / app.grid.size) * app.grid.size
 
       self.static = true
-      app.grid.world:add(self, self.x + 4, self.y + 4, app.grid.size - 8, app.grid.size - 8)
+      self.wasStatic = true
+      app.grid.world:add(self, self.x + 16, self.y + 16, app.grid.size - 32, app.grid.size - 32)
       self.gridX = math.round(self.x / app.grid.size)
       self.gridY = math.round(self.y / app.grid.size)
+      self.angle = math.round(self.angle / (math.pi / 2)) * (math.pi / 2)
       app.grid:setBlock(self.gridX, self.gridY, self)
       app.blocks:matchPattern()
+      screenshake = .1
     end
   else
     self:setPosition()
@@ -67,15 +84,19 @@ function block:draw()
   local size = app.grid.size * self.scale
   local image = self.images[self.color]
   local scale = size / image:getWidth()
-  local angle = self.static and (self.angle) or self.angle
+  local angle = self.static and (self.angle) or self.angle + app.grid.angle
+  local ox, oy = app.grid.width / 2 * app.grid.size, app.grid.height / 2 * app.grid.size
+  local cx, cy = self.x + gridSize / 2, self.y + gridSize / 2
   g.setColor(255, 255, 255)
-  g.draw(image, self.x + gridSize / 2, self.y + gridSize / 2, angle, scale, scale, image:getWidth() / 2, image:getHeight() / 2)
+  g.draw(image, cx, cy, angle, scale, scale, image:getWidth() / 2, image:getHeight() / 2)
 
   if not self.static then
     g.setColor(255, 255, 255)
-    local x2 = self.x + gridSize / 2 + math.dx(size / 2, self.angle)
-    local y2 = self.y + gridSize / 2 + math.dy(size / 2, self.angle)
+    local x2 = self.x + gridSize / 2 + math.dx(size, angle)
+    local y2 = self.y + gridSize / 2 + math.dy(size, angle)
+    g.setLineWidth(8)
     g.line(self.x + gridSize / 2, self.y + gridSize / 2, x2, y2)
+    g.setLineWidth(1)
   end
 
   if not self.static then
@@ -97,6 +118,20 @@ function block:setPosition()
   local s = math.sin(d)
   self.x = ((self.rx - ox) * c - (self.ry - oy) * s) + ox
   self.y = ((self.rx - ox) * s + (self.ry - oy) * c) + oy
+end
+
+function block:isOnSameSide(other)
+  local left = self.x <= app.region.x1 * app.grid.size
+  local right = self.x >= app.region.x2 * app.grid.size
+  local otherLeft = other.x <= app.region.x1 * app.grid.size
+  local otherRight = other.x >= app.region.x2 * app.grid.size
+
+  local top = self.x <= app.region.y1 * app.grid.size
+  local bottom = self.x >= app.region.y2 * app.grid.size
+  local otherTop = other.x <= app.region.y1 * app.grid.size
+  local otherBottom = other.x >= app.region.y2 * app.grid.size
+
+  return left == otherLeft and top == otherTop and bottom == otherBottom and right == otherRight
 end
 
 return block

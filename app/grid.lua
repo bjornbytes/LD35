@@ -1,22 +1,25 @@
 local grid = {}
 
-grid.size = 40
-grid.width = 11
-grid.height = 11
+grid.size = 100
+grid.width = 9
+grid.height = 9
 
 function grid.init()
   grid.world = lib.bump.newWorld(grid.size)
   grid.angle = 0
-  grid.targetAngle = grid.angle
   grid.blocks = {}
 end
 
 function grid:update(dt)
-  grid.angle = math.anglerp(grid.angle, grid.targetAngle, math.min(10 * dt, 1))
+  --grid.angle = math.anglerp(grid.angle, grid.targetAngle, math.min(10 * dt, 1))
 end
 
 function grid:draw()
   g.setColor(255, 255, 255)
+
+  local image = art.bg1
+  local scale = (grid.width * grid.size) / image:getWidth()
+  g.draw(image, 0, 0, 0, scale, scale)
 
   if love.keyboard.isDown('`') then
     for x = 0, grid.width do
