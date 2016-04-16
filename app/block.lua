@@ -38,6 +38,8 @@ function block:update(dt)
   self.angle = self.originalAngle - app.grid.angle
 
   if self.timer <= 0 and not app.grid.animating then
+    self.angle = math.round(self.angle / (math.pi / 2)) * (math.pi / 2)
+
     if wasStatic then
       self.x = self.x + math.dx(self.speed * dt, self.angle)
       self.y = self.y + math.dy(self.speed * dt, self.angle)
@@ -58,7 +60,7 @@ function block:update(dt)
 
       self.static = true
       self.wasStatic = true
-      app.grid.world:add(self, self.x + 16, self.y + 16, app.grid.size - 32, app.grid.size - 32)
+      app.grid.world:add(self, self.x + 25, self.y + 25, app.grid.size - 50, app.grid.size - 50)
       self.gridX = math.round(self.x / app.grid.size)
       self.gridY = math.round(self.y / app.grid.size)
       self.angle = math.round(self.angle / (math.pi / 2)) * (math.pi / 2)
@@ -97,6 +99,14 @@ function block:draw()
     g.setLineWidth(8)
     g.line(self.x + gridSize / 2, self.y + gridSize / 2, x2, y2)
     g.setLineWidth(1)
+  end
+
+  if self.timer > 0 then
+    local factor = self.timer / self.delay
+    local size = _.lerp(app.grid.size, app.grid.size * 2, factor)
+    local alpha = 255 * (1 - factor)
+    g.setColor(255, 255, 255, alpha)
+    g.rectangle('line', cx - size / 2, cy - size / 2, size, size)
   end
 
   if not self.static then

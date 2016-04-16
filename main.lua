@@ -79,7 +79,7 @@ function love.keypressed(key)
   if key == 'left' and not blockIsMoving then
     app.grid.animating = true
     app.grid.targetAngle = (app.grid.targetAngle or app.grid.angle) - math.pi / 2
-    lib.flux.to(app.grid, .25, { angle = app.grid.targetAngle })
+    lib.flux.to(app.grid, .35, { angle = app.grid.targetAngle })
       :ease('backout')
       :oncomplete(function()
         app.grid.animating = false
@@ -87,7 +87,7 @@ function love.keypressed(key)
   elseif key == 'right' and not blockIsMoving then
     app.grid.animating = true
     app.grid.targetAngle = (app.grid.targetAngle or app.grid.angle) + math.pi / 2
-    lib.flux.to(app.grid, .25, { angle = app.grid.targetAngle })
+    lib.flux.to(app.grid, .35, { angle = app.grid.targetAngle })
       :ease('backout')
       :oncomplete(function()
         app.grid.animating = false
