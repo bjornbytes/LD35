@@ -1,8 +1,8 @@
 {
-"skeleton": { "hash": "e8xOxnQnh53jLjlfZ56x/AYJB3o", "spine": "2.1.18", "width": 387.99, "height": 387.99 },
+"skeleton": { "hash": "G4LeyrfZCDiZdAQsoPIOEbB/Q90", "spine": "2.1.18", "width": 387.99, "height": 387.99 },
 "bones": [
 	{ "name": "root" },
-	{ "name": "body", "parent": "root", "length": 75.98, "x": -0.73, "y": 6.06, "rotation": 89.54 },
+	{ "name": "body", "parent": "root", "length": 75.98, "x": -1.73, "y": -188.32, "rotation": 89.54 },
 	{ "name": "lefteyeball", "parent": "body", "x": 229.45, "y": -120.04 },
 	{ "name": "mouth", "parent": "body", "length": 11.93, "x": 80.13, "y": -1.89, "rotation": -180 },
 	{ "name": "righteyeball", "parent": "body", "x": 227.34, "y": 117.95 },
