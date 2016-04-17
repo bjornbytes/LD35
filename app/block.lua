@@ -8,6 +8,13 @@ block.images = {
   green = art.greenblock,
   gem = art.gem
 }
+block.hues = {
+  orange = { 213, 153, 122 },
+  purple = { 169, 139, 196 },
+  green = { 135, 175, 121 },
+  red = { 163, 87, 87 },
+  gem = { 168, 64, 207 }
+}
 
 block.speed = 2000
 block.delay = 1
