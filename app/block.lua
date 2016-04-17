@@ -85,19 +85,20 @@ function block:update(dt)
 
     local hasCollision = false
 
-    if #app.grid.world:queryRect(self.x, self.y, app.grid.size, app.grid.size) > 0 then
+    if #app.grid.world:queryRect(self.x + 8, self.y + 8, app.grid.size - 16, app.grid.size - 16) > 0 then
       hasCollision = true
     end
 
     if self:isEscaped() or hasCollision then
-      self.x = math.round(ox / app.grid.size) * app.grid.size
-      self.y = math.round(oy / app.grid.size) * app.grid.size
+      self.x = math.round(self.x / app.grid.size) * app.grid.size
+      self.y = math.round(self.y / app.grid.size) * app.grid.size
 
       self.static = true
       self.wasStatic = true
-      app.grid.world:add(self, self.x + 25, self.y + 25, app.grid.size - 50, app.grid.size - 50)
+      app.grid.world:add(self, self.x + 8, self.y + 8, app.grid.size - 16, app.grid.size - 16)
       self.gridX = math.round(self.x / app.grid.size)
       self.gridY = math.round(self.y / app.grid.size)
+
       app.grid:setBlock(self.gridX, self.gridY, self)
       self.angle = self.originalAngle - app.grid.angle
       self.angle = math.round(self.angle / (math.pi / 2)) * (math.pi / 2)
