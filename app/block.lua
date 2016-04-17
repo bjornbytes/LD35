@@ -116,8 +116,11 @@ function block:draw()
     local factor = self.timer / self.delay
     local size = _.lerp(app.grid.size, app.grid.size * 2, factor)
     local alpha = 255 * (1 - factor)
-    g.setColor(255, 255, 255, alpha)
+    local color = app.block.hues[app.queue.items[1].color]
+    g.setLineWidth(5)
+    g.setColor(color[1], color[2], color[3], alpha)
     g.rectangle('line', cx - size / 2, cy - size / 2, size, size)
+    g.setLineWidth(1)
   end
 
   if not self.static then
