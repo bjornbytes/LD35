@@ -1,6 +1,8 @@
 local blocks = {}
 
-blocks.list = {}
+function blocks:init()
+  blocks.list = {}
+end
 
 function blocks:add(color)
   local block = app.block(color)
@@ -33,6 +35,7 @@ function blocks:matchPattern()
     for y = 0, app.grid.height do
       local group = self:getGroup(x, y)
       if #group >= 3 then
+        score = score + ((10 * #group) * (#group - 2)) * (_.match(group, function(block) return block.color == 'gem' end) and 2 or 1)
         for i = 1, #group do
           self:remove(group[i])
         end
@@ -59,7 +62,7 @@ function blocks:getGroup(x, y)
   while #candidates > 0 do
     local candidate = table.remove(candidates)
     visited[candidate] = true
-    if candidate.color == block.color or block.color == 'gem' then
+    if candidate.color == block.color or candidate.color == 'gem' then
       table.insert(matches, candidate)
       local neighbors = _.filter({
         left = app.grid:getBlock(candidate.gridX - 1, candidate.gridY),
