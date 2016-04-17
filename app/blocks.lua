@@ -1,6 +1,8 @@
 local blocks = {}
 
-blocks.list = {}
+function blocks:init()
+  blocks.list = {}
+end
 
 function blocks:add(color)
   local block = app.block(color)

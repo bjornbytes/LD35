@@ -1,9 +1,9 @@
 local queue = {}
-queue.rate = 2
 queue.capacity = 3
 
 function queue:init()
   self.items = {}
+  self.rate = 2
   self.timer = self.rate
   self:fill()
 end

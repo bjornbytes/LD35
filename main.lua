@@ -6,13 +6,16 @@ require 'lib/util'
 _ = lib.lume
 g = love.graphics
 
-screenshake = 0
-tick = 1
-
 function love.load()
+  score = 0
+  screenshake = 0
+  tick = 1
+
   app.grid.init()
   app.region.init()
+  app.blocks:init()
   app.queue:init()
+  app.hud:init()
 end
 
 function love.update(dt)
@@ -102,4 +105,8 @@ function love.keypressed(key)
       block.timer = 0
     end)
   end
+end
+
+function love.mousereleased(x, y, b)
+  app.hud:mousereleased(x, y, b)
 end
