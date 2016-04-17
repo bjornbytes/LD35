@@ -72,6 +72,7 @@ function block:update(dt)
   if self.timer <= 0 and not app.grid.animating then
     self.angle = math.round(self.angle / (math.pi / 2)) * (math.pi / 2)
 
+    local ox, oy = self.x, self.y
     if wasStatic then
       self.x = self.x + math.dx(self.speed * dt, self.angle)
       self.y = self.y + math.dy(self.speed * dt, self.angle)
@@ -87,8 +88,8 @@ function block:update(dt)
     end
 
     if self:isEscaped() or hasCollision then
-      self.x = math.round(self.x / app.grid.size) * app.grid.size
-      self.y = math.round(self.y / app.grid.size) * app.grid.size
+      self.x = math.round(ox / app.grid.size) * app.grid.size
+      self.y = math.round(oy / app.grid.size) * app.grid.size
 
       self.static = true
       self.wasStatic = true
@@ -155,7 +156,7 @@ function block:draw()
   local angle = self.static and self.angle or self.angle + app.grid.angle
   self.animation.skeleton:findBone('root').scaleX = self.scale
   self.animation.skeleton:findBone('root').scaleY = self.scale
-  self.animation.skeleton:findBone('root').rotation = math.deg(angle)
+  self.animation.skeleton:findBone('root').rotation = math.deg(angle + math.pi / 2)
   self.animation:draw(cx, cy)
 
   if not self.static then
