@@ -154,11 +154,15 @@ function block:update(dt)
 
   if self.static then return end
 
+  self.angle = self.originalAngle - app.grid.angle
+
   if not app.grid.animating and self.timer > 0 then
     self.timer = math.max(self.timer - dt, 0)
+    if self.timer == 0 then
+      self.angle = math.round(self.angle / (math.pi / 2)) * (math.pi / 2)
+      self:setPosition()
+    end
   end
-
-  self.angle = self.originalAngle - app.grid.angle
 
   if self.timer <= 0 and not app.grid.animating then
     self.angle = math.round(self.angle / (math.pi / 2)) * (math.pi / 2)
