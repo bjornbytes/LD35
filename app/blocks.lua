@@ -39,6 +39,7 @@ function blocks:matchPattern()
         for i = 1, #group do
           self:remove(group[i])
         end
+        return true
       end
     end
   end

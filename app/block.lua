@@ -75,7 +75,13 @@ function block:update(dt)
       self.gridX = math.round(self.x / app.grid.size)
       self.gridY = math.round(self.y / app.grid.size)
       app.grid:setBlock(self.gridX, self.gridY, self)
-      app.blocks:matchPattern()
+
+      if app.blocks:matchPattern() then
+        _.randomchoice({sound.pop1, sound.pop2, sound.pop3, sound.pop4, sound.pop5}):play()
+      else
+        sound.hit:play()
+      end
+
       screenshake = .1
       score = score + 1
     end

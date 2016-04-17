@@ -1,3 +1,5 @@
+require 'lib/slam'
+
 setmetatable(_G, {
   __index = require('lib/cargo').init('/')
 })
