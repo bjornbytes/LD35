@@ -1,5 +1,5 @@
 {
-"skeleton": { "hash": "ZkSOjy9MLjcKnTi6qeeFYztAnmE", "spine": "2.1.18", "width": 387.99, "height": 387.99 },
+"skeleton": { "hash": "J9GdJovSUVixtN9kkYptH+TcrFU", "spine": "2.1.18", "width": 549.99, "height": 520.99 },
 "bones": [
 	{ "name": "root" },
 	{ "name": "body", "parent": "root", "length": 75.98, "x": -1.73, "y": -188.32, "rotation": 89.54 },
@@ -12,7 +12,7 @@
 	{ "name": "righteyebrow", "parent": "righteyeball", "length": 23.37, "x": 37.79, "y": -28.6, "rotation": 6.29 }
 ],
 "slots": [
-	{ "name": "body", "bone": "body", "attachment": "body-blue" },
+	{ "name": "body", "bone": "body", "attachment": "gem" },
 	{ "name": "righteyelashes", "bone": "righteyeball", "attachment": "righteyelashes" },
 	{ "name": "righteyeball", "bone": "righteyeball", "attachment": "righteyeball" },
 	{ "name": "lefteyelashes", "bone": "lefteyeball", "attachment": "lefteyelashes" },
@@ -25,7 +25,8 @@
 	{ "name": "lefteyebrow", "bone": "lefteyebrow", "attachment": "lefteyebrow-blue" },
 	{ "name": "mouth", "bone": "mouth", "attachment": "mouth-blue" },
 	{ "name": "lefteye-purple", "bone": "lefteye" },
-	{ "name": "righteye-purple", "bone": "righteye" }
+	{ "name": "righteye-purple", "bone": "righteye" },
+	{ "name": "gemshine", "bone": "body" }
 ],
 "skins": {
 	"default": {
@@ -34,7 +35,14 @@
 			"body-green": { "x": 189, "y": -1.5, "rotation": -89.54, "width": 388, "height": 388 },
 			"body-orange": { "x": 188.49, "y": -1.06, "rotation": -89.54, "width": 388, "height": 388 },
 			"body-purple": { "x": 188.49, "y": -1.06, "rotation": -89.54, "width": 388, "height": 388 },
-			"body-red": { "x": 188.71, "y": 0.73, "rotation": -89.54, "width": 388, "height": 388 }
+			"body-red": { "x": 188.71, "y": 0.73, "rotation": -89.54, "width": 388, "height": 388 },
+			"gem": { "x": 185.41, "y": 1.45, "rotation": -89.54, "width": 550, "height": 521 }
+		},
+		"gemshine": {
+			"shine1": { "x": 298.84, "y": 152.36, "rotation": -89.54, "width": 248, "height": 293 },
+			"shine2": { "x": 239.6, "y": 48.54, "rotation": -89.54, "width": 345, "height": 412 },
+			"shine3": { "x": 188.03, "y": -34.07, "rotation": -89.54, "width": 354, "height": 515 },
+			"shine4": { "x": 178.59, "y": -105.25, "rotation": -89.54, "width": 336, "height": 505 }
 		},
 		"lefteye-blue": {
 			"lefteye-blue": { "x": -8.3, "y": -4.86, "rotation": 102.88, "width": 65, "height": 65 }
@@ -492,6 +500,80 @@
 					{ "time": 0.4333, "x": 1, "y": 1 },
 					{ "time": 0.5, "x": 1.073, "y": 1.073 },
 					{ "time": 0.6, "x": 1, "y": 1 }
+				]
+			}
+		}
+	},
+	"gem": {
+		"slots": {
+			"body": {
+				"attachment": [
+					{ "time": 0, "name": "gem" }
+				]
+			},
+			"gemshine": {
+				"attachment": [
+					{ "time": 0, "name": null },
+					{ "time": 0.0333, "name": "shine1" },
+					{ "time": 0.1, "name": "shine2" },
+					{ "time": 0.1666, "name": "shine3" },
+					{ "time": 0.2333, "name": "shine4" },
+					{ "time": 0.2666, "name": null }
+				]
+			},
+			"lefteye-blue": {
+				"attachment": [
+					{ "time": 0, "name": null }
+				]
+			},
+			"lefteye-brown": {
+				"attachment": [
+					{ "time": 0, "name": null }
+				]
+			},
+			"lefteyeball": {
+				"attachment": [
+					{ "time": 0, "name": null }
+				]
+			},
+			"lefteyebrow": {
+				"attachment": [
+					{ "time": 0, "name": null }
+				]
+			},
+			"lefteyelashes": {
+				"attachment": [
+					{ "time": 0, "name": null }
+				]
+			},
+			"mouth": {
+				"attachment": [
+					{ "time": 0, "name": null }
+				]
+			},
+			"righteye-blue": {
+				"attachment": [
+					{ "time": 0, "name": null }
+				]
+			},
+			"righteye-brown": {
+				"attachment": [
+					{ "time": 0, "name": null }
+				]
+			},
+			"righteyeball": {
+				"attachment": [
+					{ "time": 0, "name": null }
+				]
+			},
+			"righteyebrow": {
+				"attachment": [
+					{ "time": 0, "name": null }
+				]
+			},
+			"righteyelashes": {
+				"attachment": [
+					{ "time": 0, "name": null }
 				]
 			}
 		}
