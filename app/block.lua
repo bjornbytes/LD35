@@ -65,9 +65,6 @@ function block:update(dt)
 
   if not app.grid.animating and self.timer > 0 then
     self.timer = math.max(self.timer - dt, 0)
-    if self.timer <= 0 then
-      lib.flux.to(self, .3, { arrowFactor = 0 }):ease('backin')
-    end
   end
 
   self.angle = self.originalAngle - app.grid.angle
@@ -99,7 +96,9 @@ function block:update(dt)
       self.gridX = math.round(self.x / app.grid.size)
       self.gridY = math.round(self.y / app.grid.size)
       app.grid:setBlock(self.gridX, self.gridY, self)
-      self.angle = self.originalAngle
+      self.angle = self.originalAngle + app.grid.angle
+      self.arrowFactor = 1.2
+      lib.flux.to(self, .3, { arrowFactor = 0 }):ease('backin')
 
       if app.blocks:matchPattern() then
         _.randomchoice({sound.pop1, sound.pop2, sound.pop3, sound.pop4, sound.pop5}):play()
@@ -128,20 +127,18 @@ function block:draw()
   local size = app.grid.size * self.scale
   local image = self.images[self.color]
   local scale = size / image:getWidth()
-  local angle = self.static and (self.angle) or self.angle + app.grid.angle
   local ox, oy = app.grid.width / 2 * app.grid.size, app.grid.height / 2 * app.grid.size
   local cx, cy = self.x + gridSize / 2, self.y + gridSize / 2
-  g.setColor(255, 255, 255)
-  --g.draw(image, cx, cy, angle, scale, scale, image:getWidth() / 2, image:getHeight() / 2)
 
   if self.arrowFactor > 0 then
+    local angle = self.static and self.originalAngle - app.grid.angle or self.angle + app.grid.angle
     local x = self.x + gridSize / 2 + math.dx(size, angle)
     local y = self.y + gridSize / 2 + math.dy(size, angle)
     local image = art.arrow
     local scale = (60 / image:getWidth()) * self.arrowFactor
     scale = scale * (1 + math.sin(tick / 10) / 10)
     g.setColor(255, 255, 200, 255 * _.clamp(self.arrowFactor, 0, 1))
-    g.draw(image, x, y, self.angle + app.grid.angle, scale, scale, image:getWidth() / 2, image:getHeight() / 2)
+    g.draw(image, x, y, angle, scale, scale, image:getWidth() / 2, image:getHeight() / 2)
   end
 
   if self.timer > 0 then
@@ -155,9 +152,10 @@ function block:draw()
     g.setLineWidth(1)
   end
 
+  local angle = self.static and self.angle or self.angle + app.grid.angle
   self.animation.skeleton:findBone('root').scaleX = self.scale
   self.animation.skeleton:findBone('root').scaleY = self.scale
-  self.animation.skeleton:findBone('root').rotation = math.deg(self.angle)
+  self.animation.skeleton:findBone('root').rotation = math.deg(angle)
   self.animation:draw(cx, cy)
 
   if not self.static then
