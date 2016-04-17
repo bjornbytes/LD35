@@ -51,6 +51,8 @@ function block:init(color)
   self.wasStatic = false
   self.originalAngle = self.angle
   self.arrowFactor = 0
+  self.overlay = 0
+  self.opacity = 1
 
   self.scale = 0
   lib.flux.to(self, .3, { scale = 1, arrowFactor = 1 }):ease('backout')
@@ -108,7 +110,7 @@ function block:update(dt)
         sound.hit:play()
       end
 
-      screenshake = .1
+      screenshake = .15
       score = score + 1
     end
   else
@@ -154,11 +156,19 @@ function block:draw()
     g.setLineWidth(1)
   end
 
+  self.animation.skeleton.a = self.opacity
+
   local angle = self.static and -self.angle or -self.angle - app.grid.angle
   self.animation.skeleton:findBone('root').scaleX = self.scale
   self.animation.skeleton:findBone('root').scaleY = self.scale
   self.animation.skeleton:findBone('root').rotation = math.deg(angle + math.pi / 2)
   self.animation:draw(cx, cy)
+  if self.overlay > 0 then
+    glsl.colorize:send('color', { 1, 1, 1, math.sin(self.overlay) })
+    g.setShader(glsl.colorize)
+    self.animation:draw(cx, cy)
+    g.setShader()
+  end
 
   if not self.static then
     g.pop()

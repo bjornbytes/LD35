@@ -15,7 +15,13 @@ function blocks:remove(block)
   end
 
   app.grid:removeBlock(block.gridX, block.gridY)
-  self.list[block] = nil
+
+  lib.flux.to(block, .3, { overlay = math.pi })
+    :ease('quartout')
+    :after(.2, { opacity = 0, scale = 1.75 }):ease('quintout')
+    :oncomplete(function()
+      self.list[block] = nil
+    end)
 end
 
 function blocks:update(dt)
