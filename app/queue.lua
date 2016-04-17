@@ -21,18 +21,6 @@ function queue:update(dt)
   end
 end
 
-function queue:draw()
-  local size = app.grid.size
-  local padding = 8
-
-  for i = 1, #self.items do
-    g.setColor(255, 255, 255)
-    local image = app.block.images[self.items[i].color]
-    local scale = size / image:getWidth()
-    g.draw(image, 8 + (i - 1) * (size + padding), 8, 0, scale, scale)
-  end
-end
-
 function queue:generate()
   local item = table.remove(self.items, 1)
   app.blocks:add(item.color)

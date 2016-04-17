@@ -66,8 +66,6 @@ function love.draw()
   app.blocks:drawDynamic()
 
   g.pop()
-
-  app.queue:draw()
 end
 
 function love.keypressed(key)
