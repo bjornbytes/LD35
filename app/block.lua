@@ -1,6 +1,6 @@
 local block = class()
 
-block.colors = { orange = 3, purple = 3, green = 3, red = 3, gem = 1 }
+block.colors = { orange = 3, purple = 3, green = 3, red = 3, blue = 3, gem = 1 }
 block.images = {
   red = art.redblock,
   orange = art.orangeblock,
@@ -13,6 +13,7 @@ block.hues = {
   purple = { 169, 139, 196 },
   green = { 135, 175, 121 },
   red = { 163, 87, 87 },
+  blue = { 91, 123, 159 },
   gem = { 168, 64, 207 }
 }
 
@@ -31,6 +32,17 @@ block.animationConfig = {
     },
     ['orange-idle'] = {
       loop = true
+    },
+    ['blue-idle'] = {
+      loop = true
+    },
+    eyesLeft = {
+      loop = false,
+      track = 1
+    },
+    eyesRight = {
+      loop = false,
+      track = 1
     }
   }
 }
@@ -54,6 +66,8 @@ function block:init(color)
   self.overlay = 0
   self.opacity = 1
 
+  self.fiddleTimer = 0
+
   self.scale = 0
   lib.flux.to(self, .3, { scale = 1, arrowFactor = 1 }):ease('backout')
 
@@ -62,6 +76,14 @@ end
 
 function block:update(dt)
   self.animation:update(dt)
+
+  if self.fiddleTimer > 0 then
+    self.fiddleTimer = math.max(self.fiddleTimer - dt, 0)
+    if self.fiddleTimer <= 0 then
+      self.animation:set(love.math.random() > .5 and 'eyesLeft' or 'eyesRight')
+      self.fiddleTimer = love.math.random(5, 10)
+    end
+  end
 
   if self.static then return end
 
@@ -111,6 +133,8 @@ function block:update(dt)
         sound.hit:play()
       end
 
+      self.fiddleTimer = love.math.random(1, 10)
+
       screenshake = .15
       score = score + 1
     end
@@ -131,7 +155,6 @@ function block:draw()
 
   local size = app.grid.size * self.scale
   local image = self.images[self.color]
-  local scale = size / image:getWidth()
   local ox, oy = app.grid.width / 2 * app.grid.size, app.grid.height / 2 * app.grid.size
   local cx, cy = self.x + gridSize / 2, self.y + gridSize / 2
 
