@@ -18,11 +18,7 @@ block.hues = {
 
 block.animationConfig = {
   dir = 'art/animation',
-  scale = .5,
-  offset = {
-    x = 0,
-    y = 30
-  },
+  scale = app.grid.size / art.redblock:getWidth(),
   states = {
     ['green-idle'] = {
       loop = true
@@ -103,6 +99,7 @@ function block:update(dt)
       self.gridX = math.round(self.x / app.grid.size)
       self.gridY = math.round(self.y / app.grid.size)
       app.grid:setBlock(self.gridX, self.gridY, self)
+      self.angle = self.originalAngle
 
       if app.blocks:matchPattern() then
         _.randomchoice({sound.pop1, sound.pop2, sound.pop3, sound.pop4, sound.pop5}):play()
@@ -135,7 +132,7 @@ function block:draw()
   local ox, oy = app.grid.width / 2 * app.grid.size, app.grid.height / 2 * app.grid.size
   local cx, cy = self.x + gridSize / 2, self.y + gridSize / 2
   g.setColor(255, 255, 255)
-  g.draw(image, cx, cy, angle, scale, scale, image:getWidth() / 2, image:getHeight() / 2)
+  --g.draw(image, cx, cy, angle, scale, scale, image:getWidth() / 2, image:getHeight() / 2)
 
   if self.arrowFactor > 0 then
     local x = self.x + gridSize / 2 + math.dx(size, angle)
@@ -158,7 +155,10 @@ function block:draw()
     g.setLineWidth(1)
   end
 
-  self.animation:draw(self.x, self.y)
+  self.animation.skeleton:findBone('root').scaleX = self.scale
+  self.animation.skeleton:findBone('root').scaleY = self.scale
+  self.animation.skeleton:findBone('root').rotation = math.deg(self.angle)
+  self.animation:draw(cx, cy)
 
   if not self.static then
     g.pop()
