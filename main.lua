@@ -133,7 +133,7 @@ function love.keypressed(key)
       :oncomplete(function()
         app.grid.animating = false
       end)
-  elseif key == 'space' then
+  elseif key == 'space' and not app.hud.menu and not app.hud.lost then
     _.each(app.blocks.list, function(block)
       block.timer = 0
     end)
