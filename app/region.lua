@@ -46,6 +46,8 @@ function region:update(dt)
 
   if regionSize == 0 then
     app.hud.lost = true
+    app.hud.highscores[level] = score
+    love.filesystem.write(level .. '.txt', score)
   end
 end
 

@@ -7,6 +7,12 @@ function hud:init()
   self.font = fonts.avenir(.05 * g.getHeight())
   self.smallFont = fonts.avenir(.033 * g.getHeight())
   self.scoreDisplay = score
+
+  self.highscores = {
+    sky = love.filesystem.read('sky.txt') or 0,
+    water = love.filesystem.read('water.txt') or 0,
+    newmexico = love.filesystem.read('newmexico.txt') or 0
+  }
 end
 
 function hud:update(dt)
@@ -54,6 +60,9 @@ function hud:draw()
     local str = 'Simple Skies'
     g.print(str, xx - g.getFont():getWidth(str) / 2, v * .5 - size / 2 - .02 * v - g.getFont():getHeight())
 
+    local str = self.highscores.sky
+    g.print(str, xx - g.getFont():getWidth(str) / 2, v * .5 + size / 2 + .02 * v)
+
     xx = xx + inc
 
     local image = art.oatline
@@ -67,6 +76,9 @@ function hud:draw()
     local str = 'Onerous Ocean'
     g.print(str, xx - g.getFont():getWidth(str) / 2, v * .5 - size / 2 - .02 * v - g.getFont():getHeight())
 
+    local str = self.highscores.water
+    g.print(str, xx - g.getFont():getWidth(str) / 2, v * .5 + size / 2 + .02 * v)
+
     xx = xx + inc
 
     local image = art.oatline
@@ -79,6 +91,9 @@ function hud:draw()
 
     local str = 'Devastating Desert'
     g.print(str, xx - g.getFont():getWidth(str) / 2, v * .5 - size / 2 - .02 * v - g.getFont():getHeight())
+
+    local str = self.highscores.newmexico
+    g.print(str, xx - g.getFont():getWidth(str) / 2, v * .5 + size / 2 + .02 * v)
 
     return
   end
@@ -110,7 +125,7 @@ function hud:draw()
     g.rectangle('line', u * .5 - width / 2, buttonY, width, buttonHeight, 8, 8)
     g.setLineWidth(1)
 
-    local str = 'Again'
+    local str = 'Menu'
     local nudge = 4
     g.setColor(0, 0, 0, 64)
     g.print(str, u * .5 - g.getFont():getWidth(str) / 2 - nudge + 1, buttonY + buttonHeight / 2 - g.getFont():getHeight() / 2 - nudge + 1)
