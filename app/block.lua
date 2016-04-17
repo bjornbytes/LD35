@@ -1,6 +1,6 @@
 local block = class()
 
-block.colors = { orange = 3, purple = 3, green = 3, red = 3, gem = 2 }
+block.colors = { orange = 3, purple = 3, green = 3, red = 3, gem = 1 }
 block.images = {
   red = art.redblock,
   orange = art.orangeblock,
