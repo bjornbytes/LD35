@@ -187,7 +187,7 @@ function hud:mousereleased(x, y, b)
     if math.inside(x, y, xx - size / 2, v * .5 - size / 2, size, size) then
       level = 'newmexico'
 
-      local colorList = _.first(_.shuffle(allColors), 4)
+      local colorList = _.first(_.shuffle(allColors), 5)
       app.block.colors = {}
       app.block.colors.gem = 1
       _.each(colorList, function(c)

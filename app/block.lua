@@ -101,8 +101,6 @@ function block:init(color)
   self.rx = love.math.random(app.region.x1, app.region.x2 - 1) * app.grid.size
   self.ry = love.math.random(app.region.y1, app.region.y2 - 1) * app.grid.size
 
-  color = 'orange'
-
   local config = table.copy(self.animationConfig)
   config.on = {
     complete = function(animation, state)
@@ -111,6 +109,10 @@ function block:init(color)
       end
     end
   }
+
+  if color == 'gem' then
+    config.scale = app.grid.size / art.gem:getWidth()
+  end
 
   self.animation = lib.chiro.create(config)
 
