@@ -21,6 +21,19 @@ block.animationConfig = {
   dir = 'art/animation',
   scale = app.grid.size / art.redblock:getWidth(),
   states = {
+    eyesLeft = {
+      loop = false,
+      track = 1
+    },
+    eyesRight = {
+      loop = false,
+      track = 1
+    },
+
+    gem = {
+      loop = false
+    },
+
     ['green-idle'] = {
       loop = true
     },
@@ -36,15 +49,45 @@ block.animationConfig = {
     ['blue-idle'] = {
       loop = true
     },
-    eyesLeft = {
+
+    ['green-launch'] = {
       loop = false,
-      track = 1
+      speed = 1
     },
-    eyesRight = {
+    ['red-launch'] = {
       loop = false,
-      track = 1
+      speed = 1
+    },
+    ['purple-launch'] = {
+      loop = false,
+      speed = 1
     },
     ['orange-launch'] = {
+      loop = false,
+      speed = 1
+    },
+    ['blue-launch'] = {
+      loop = false,
+      speed = 1
+    },
+
+    ['green-land'] = {
+      loop = false,
+      speed = 1
+    },
+    ['red-land'] = {
+      loop = false,
+      speed = 1
+    },
+    ['purple-land'] = {
+      loop = false,
+      speed = 1
+    },
+    ['orange-land'] = {
+      loop = false,
+      speed = 1
+    },
+    ['blue-land'] = {
       loop = false,
       speed = 1
     }
@@ -58,17 +101,24 @@ function block:init(color)
   self.rx = love.math.random(app.region.x1, app.region.x2 - 1) * app.grid.size
   self.ry = love.math.random(app.region.y1, app.region.y2 - 1) * app.grid.size
 
+  color = 'orange'
+
   local config = table.copy(self.animationConfig)
   config.on = {
-    complete = function(self, state)
-      if state == 'orange-launch' then
-        self.animation:set('orange-idle')
+    complete = function(animation, state)
+      if self.color ~= 'gem' and state.name:match('%-land$') then
+        animation:set(color .. '-idle')
       end
     end
   }
 
   self.animation = lib.chiro.create(config)
-  self.animation:set('orange-launch')
+
+  if color == 'gem' then
+    self.animation:set('gem')
+  else
+    self.animation:set(color .. '-launch')
+  end
 
   self.angle = math.floor(love.math.random() * 2 * math.pi / (math.pi / 2)) * (math.pi / 2)
   self.timer = self.delay
@@ -93,7 +143,9 @@ function block:update(dt)
   if self.fiddleTimer > 0 then
     self.fiddleTimer = math.max(self.fiddleTimer - dt, 0)
     if self.fiddleTimer <= 0 then
-      self.animation:set(love.math.random() > .5 and 'eyesLeft' or 'eyesRight')
+      if self.color ~= 'gem' then
+        self.animation:set(love.math.random() > .5 and 'eyesLeft' or 'eyesRight')
+      end
       self.fiddleTimer = love.math.random(5, 10)
     end
   end
@@ -148,7 +200,9 @@ function block:update(dt)
 
       self.fiddleTimer = love.math.random(1, 10)
 
-      self.animation:set('orange-idle')
+      if self.color ~= 'gem' then
+        self.animation:set(self.color .. '-land')
+      end
 
       screenshake = .15
       score = score + 1

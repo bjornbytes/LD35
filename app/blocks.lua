@@ -16,6 +16,7 @@ function blocks:remove(block)
 
   app.grid:removeBlock(block.gridX, block.gridY)
 
+  block.destroying = true
   lib.flux.to(block, .3, { overlay = math.pi })
     :ease('quartout')
     :after(.2, { opacity = 0, scale = 1.75 }):ease('quintout')

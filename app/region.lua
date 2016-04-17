@@ -15,7 +15,11 @@ function region:init()
 end
 
 function region:update(dt)
-  if not next(_.filter(app.blocks.list, 'static')) then return end
+  if not next(_.filter(app.blocks.list, function(block)
+    return block.static and app.grid.world:hasItem(block)
+  end)) then
+    return
+  end
 
   local function setBounds(regionSize)
     region.x1 = math.floor(app.grid.width / 2) - (regionSize - 1)
