@@ -37,8 +37,9 @@ function love.load()
 
   app.hud.menu = true
 
-  background = sound.volcano:play()
+  background = sound.background:play()
   background:setLooping(true)
+  background:setVolume(.75)
 end
 
 function love.update(dt)
