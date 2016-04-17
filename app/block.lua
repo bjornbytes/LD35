@@ -43,6 +43,10 @@ block.animationConfig = {
     eyesRight = {
       loop = false,
       track = 1
+    },
+    ['orange-launch'] = {
+      loop = false,
+      speed = 1
     }
   }
 }
@@ -54,8 +58,17 @@ function block:init(color)
   self.rx = love.math.random(app.region.x1, app.region.x2 - 1) * app.grid.size
   self.ry = love.math.random(app.region.y1, app.region.y2 - 1) * app.grid.size
 
-  self.animation = lib.chiro.create(table.copy(self.animationConfig))
-  self.animation:set(color .. '-idle')
+  local config = table.copy(self.animationConfig)
+  config.on = {
+    complete = function(self, state)
+      if state == 'orange-launch' then
+        self.animation:set('orange-idle')
+      end
+    end
+  }
+
+  self.animation = lib.chiro.create(config)
+  self.animation:set('orange-launch')
 
   self.angle = math.floor(love.math.random() * 2 * math.pi / (math.pi / 2)) * (math.pi / 2)
   self.timer = self.delay
@@ -134,6 +147,8 @@ function block:update(dt)
       end
 
       self.fiddleTimer = love.math.random(1, 10)
+
+      self.animation:set('orange-idle')
 
       screenshake = .15
       score = score + 1

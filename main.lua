@@ -9,7 +9,7 @@ spine = lib.spine
 _ = lib.lume
 g = love.graphics
 
-function love.load()
+function startGame()
   score = 0
   screenshake = 0
   tick = 1
@@ -18,15 +18,31 @@ function love.load()
   app.region.init()
   app.blocks:init()
   app.queue:init()
-  app.hud:init()
   app.particles:init()
+end
+
+function love.load()
+  level = 'sky'
+
+  score = 0
+  screenshake = 0
+  tick = 1
+
+  app.grid.init()
+  app.region.init()
+  app.blocks:init()
+  app.queue:init()
+  app.particles:init()
+  app.hud:init()
+
+  app.hud.menu = true
 end
 
 function love.update(dt)
   tick = tick + 1
   lib.flux.update(dt)
 
-  if not app.hud.lost then
+  if not app.hud.lost and not app.hud.menu then
     app.grid:update(dt)
     app.region:update(dt)
     app.queue:update(dt)

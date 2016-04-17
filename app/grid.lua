@@ -3,6 +3,11 @@ local grid = {}
 grid.size = 100
 grid.width = 9
 grid.height = 9
+grid.backgrounds = {
+  sky = art.bg1,
+  water = art.bg2,
+  newmexico = art.bg3
+}
 
 function grid.init()
   grid.world = lib.bump.newWorld(grid.size)
@@ -18,7 +23,7 @@ end
 function grid:draw()
   g.setColor(255, 255, 255)
 
-  local image = art.bg1
+  local image = self.backgrounds[level]
   local scale = (grid.width * grid.size) / image:getWidth()
   g.draw(image, 0, 0, 0, scale, scale)
 
