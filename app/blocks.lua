@@ -40,9 +40,15 @@ function blocks:matchPattern()
   for x = 0, app.grid.width do
     for y = 0, app.grid.height do
       local group = self:getGroup(x, y)
+      local hasGem = _.match(group, function(block) return block.color == 'gem' end)
       if #group >= 3 then
-        score = score + ((10 * #group) * (#group - 2)) * (_.match(group, function(block) return block.color == 'gem' end) and 2 or 1)
+        score = score + ((10 * #group) * (#group - 2)) * (hasGem and 2 or 1)
         for i = 1, #group do
+          local color = hasGem and 'gem' or group[i].color
+          for j = 1, 10 do
+            app.particles:add(group[i].x, group[i].y, color)
+          end
+
           self:remove(group[i])
         end
         return true

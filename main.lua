@@ -19,6 +19,7 @@ function love.load()
   app.blocks:init()
   app.queue:init()
   app.hud:init()
+  app.particles:init()
 end
 
 function love.update(dt)
@@ -33,6 +34,7 @@ function love.update(dt)
   end
 
   app.hud:update(dt)
+  app.particles:update(dt)
 
   screenshake = math.max(screenshake - dt, 0)
 end
@@ -75,6 +77,12 @@ function love.draw()
 
   app.blocks:drawStatic()
   app.blocks:drawDynamic()
+
+  g.pop()
+  g.push()
+  g.translate(x, y)
+
+  app.particles:draw()
 
   g.pop()
 
