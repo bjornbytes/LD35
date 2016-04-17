@@ -97,7 +97,8 @@ function block:update(dt)
       self.gridX = math.round(self.x / app.grid.size)
       self.gridY = math.round(self.y / app.grid.size)
       app.grid:setBlock(self.gridX, self.gridY, self)
-      self.angle = self.originalAngle + app.grid.angle
+      self.angle = self.originalAngle - app.grid.angle
+      self.angle = math.round(self.angle / (math.pi / 2)) * (math.pi / 2)
       self.arrowFactor = 1.2
       lib.flux.to(self, .3, { arrowFactor = 0 }):ease('backin')
 
@@ -153,7 +154,7 @@ function block:draw()
     g.setLineWidth(1)
   end
 
-  local angle = self.static and self.angle or self.angle + app.grid.angle
+  local angle = self.static and -self.angle or -self.angle - app.grid.angle
   self.animation.skeleton:findBone('root').scaleX = self.scale
   self.animation.skeleton:findBone('root').scaleY = self.scale
   self.animation.skeleton:findBone('root').rotation = math.deg(angle + math.pi / 2)
