@@ -16,12 +16,18 @@ block.hues = {
   gem = { 168, 64, 207 }
 }
 
+block.animationConfig = {
+
+}
+
 block.speed = 2000
 block.delay = 1
 
 function block:init(color)
   self.rx = love.math.random(app.region.x1, app.region.x2 - 1) * app.grid.size
   self.ry = love.math.random(app.region.y1, app.region.y2 - 1) * app.grid.size
+
+  self.animation = lib.chiro.create(self.animationConfig)
 
   self.angle = math.floor(love.math.random() * 2 * math.pi / (math.pi / 2)) * (math.pi / 2)
   self.timer = self.delay
