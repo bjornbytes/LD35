@@ -16,7 +16,7 @@ function queue:update(dt)
     self:fill()
   end
 
-  if self.rate > 1 then
+  if self.rate > 1.35 then
     self.rate = self.rate - (dt / 60)
   end
 end
