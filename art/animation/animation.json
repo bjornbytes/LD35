@@ -1,5 +1,5 @@
 {
-"skeleton": { "hash": "aORxD77/duksBK2Gfp6/Bz4tym0", "spine": "2.1.18", "width": 387.99, "height": 387.99 },
+"skeleton": { "hash": "fM9vVjvrthlkOlpHn9u4Gxk21xk", "spine": "2.1.18", "width": 387.99, "height": 387.99 },
 "bones": [
 	{ "name": "root" },
 	{ "name": "body", "parent": "root", "length": 75.98, "x": -1.73, "y": -188.32, "rotation": 89.54 },
@@ -97,6 +97,11 @@
 					{ "time": 0, "name": "body-blue" }
 				]
 			},
+			"lefteye-purple": {
+				"attachment": [
+					{ "time": 0, "name": null }
+				]
+			},
 			"lefteyebrow": {
 				"attachment": [
 					{ "time": 0, "name": "lefteyebrow-blue" }
@@ -110,6 +115,11 @@
 			"mouth": {
 				"attachment": [
 					{ "time": 0, "name": "mouth-blue" }
+				]
+			},
+			"righteye-purple": {
+				"attachment": [
+					{ "time": 0, "name": null }
 				]
 			},
 			"righteyebrow": {
@@ -302,6 +312,11 @@
 					{ "time": 0, "name": "body-green" }
 				]
 			},
+			"lefteye-purple": {
+				"attachment": [
+					{ "time": 0, "name": null }
+				]
+			},
 			"lefteyebrow": {
 				"attachment": [
 					{ "time": 0, "name": "lefteyebrow-green" }
@@ -315,6 +330,11 @@
 			"mouth": {
 				"attachment": [
 					{ "time": 0, "name": "mouth-green" }
+				]
+			},
+			"righteye-purple": {
+				"attachment": [
+					{ "time": 0, "name": null }
 				]
 			},
 			"righteyebrow": {
@@ -423,6 +443,11 @@
 					{ "time": 0, "name": "body-orange" }
 				]
 			},
+			"lefteye-purple": {
+				"attachment": [
+					{ "time": 0, "name": null }
+				]
+			},
 			"lefteyebrow": {
 				"attachment": [
 					{ "time": 0, "name": "lefteyebrow-orange" }
@@ -436,6 +461,11 @@
 			"mouth": {
 				"attachment": [
 					{ "time": 0, "name": "mouth-orange" }
+				]
+			},
+			"righteye-purple": {
+				"attachment": [
+					{ "time": 0, "name": null }
 				]
 			},
 			"righteyebrow": {
@@ -625,6 +655,21 @@
 					{ "time": 0, "name": "body-purple" }
 				]
 			},
+			"lefteye-blue": {
+				"attachment": [
+					{ "time": 0, "name": null }
+				]
+			},
+			"lefteye-brown": {
+				"attachment": [
+					{ "time": 0, "name": null }
+				]
+			},
+			"lefteyeball": {
+				"attachment": [
+					{ "time": 0, "name": null }
+				]
+			},
 			"lefteyebrow": {
 				"attachment": [
 					{ "time": 0, "name": null }
@@ -638,6 +683,11 @@
 			"mouth": {
 				"attachment": [
 					{ "time": 0, "name": "mouth-purple" }
+				]
+			},
+			"righteye-blue": {
+				"attachment": [
+					{ "time": 0, "name": null }
 				]
 			},
 			"righteye-brown": {
@@ -770,6 +820,11 @@
 					{ "time": 0, "name": "body-red" }
 				]
 			},
+			"lefteye-purple": {
+				"attachment": [
+					{ "time": 0, "name": null }
+				]
+			},
 			"lefteyebrow": {
 				"attachment": [
 					{ "time": 0, "name": "lefteyebrow-red" }
@@ -783,6 +838,11 @@
 			"mouth": {
 				"attachment": [
 					{ "time": 0, "name": "mouth-red" }
+				]
+			},
+			"righteye-purple": {
+				"attachment": [
+					{ "time": 0, "name": null }
 				]
 			},
 			"righteyebrow": {
