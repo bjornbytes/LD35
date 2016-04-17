@@ -8,10 +8,13 @@ function hud:init()
   self.smallFont = fonts.avenir(.033 * g.getHeight())
   self.scoreDisplay = score
 
+  local sky = love.filesystem.read('sky.txt')
+  local water = love.filesystem.read('water.txt')
+  local newmexico = love.filesystem.read('newmexico.txt')
   self.highscores = {
-    sky = love.filesystem.read('sky.txt') or 0,
-    water = love.filesystem.read('water.txt') or 0,
-    newmexico = love.filesystem.read('newmexico.txt') or 0
+    sky = tonumber(sky) or 0,
+    water = tonumber(water) or 0,
+    newmexico = tonumber(newmexico) or 0
   }
 end
 
