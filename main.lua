@@ -18,10 +18,13 @@ end
 function love.update(dt)
   tick = tick + 1
   lib.flux.update(dt)
-  app.grid:update(dt)
-  app.region:update(dt)
-  app.queue:update(dt)
-  app.blocks:update(dt)
+
+  if not app.hud.lost then
+    app.grid:update(dt)
+    app.region:update(dt)
+    app.queue:update(dt)
+    app.blocks:update(dt)
+  end
 
   screenshake = math.max(screenshake - dt, 0)
 end
@@ -67,7 +70,7 @@ function love.draw()
 
   g.pop()
 
-  app.queue:draw()
+  app.hud:draw()
 end
 
 function love.keypressed(key)

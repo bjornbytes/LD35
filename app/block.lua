@@ -1,12 +1,19 @@
 local block = class()
 
-block.colors = { orange = 3, purple = 3, green = 3, red = 3, gem = 2 }
+block.colors = { orange = 3, purple = 3, green = 3, red = 3, gem = 1 }
 block.images = {
   red = art.redblock,
   orange = art.orangeblock,
   purple = art.purpleblock,
   green = art.greenblock,
   gem = art.gem
+}
+block.hues = {
+  orange = { 213, 153, 122 },
+  purple = { 169, 139, 196 },
+  green = { 135, 175, 121 },
+  red = { 163, 87, 87 },
+  gem = { 168, 64, 207 }
 }
 
 block.speed = 2000
@@ -67,7 +74,6 @@ function block:update(dt)
       app.grid.world:add(self, self.x + 25, self.y + 25, app.grid.size - 50, app.grid.size - 50)
       self.gridX = math.round(self.x / app.grid.size)
       self.gridY = math.round(self.y / app.grid.size)
-      self.angle = math.round(self.angle / (math.pi / 2)) * (math.pi / 2)
       app.grid:setBlock(self.gridX, self.gridY, self)
       app.blocks:matchPattern()
       screenshake = .1
@@ -110,8 +116,11 @@ function block:draw()
     local factor = self.timer / self.delay
     local size = _.lerp(app.grid.size, app.grid.size * 2, factor)
     local alpha = 255 * (1 - factor)
-    g.setColor(255, 255, 255, alpha)
+    local color = app.block.hues[app.queue.items[1].color]
+    g.setLineWidth(5)
+    g.setColor(color[1], color[2], color[3], alpha)
     g.rectangle('line', cx - size / 2, cy - size / 2, size, size)
+    g.setLineWidth(1)
   end
 
   if not self.static then

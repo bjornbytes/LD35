@@ -46,8 +46,6 @@ function blocks:getGroup(x, y)
 
   if not block then return {} end
 
-  local color = block.color
-
   local candidates = _.filter({
     left = app.grid:getBlock(x - 1, y),
     right = app.grid:getBlock(x + 1, y),
@@ -60,12 +58,8 @@ function blocks:getGroup(x, y)
 
   while #candidates > 0 do
     local candidate = table.remove(candidates)
-    if color == 'gem' then
-      color = candidate.color
-    end
-
     visited[candidate] = true
-    if candidate.color == color then
+    if candidate.color == block.color or block.color == 'gem' then
       table.insert(matches, candidate)
       local neighbors = _.filter({
         left = app.grid:getBlock(candidate.gridX - 1, candidate.gridY),

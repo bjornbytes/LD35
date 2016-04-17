@@ -41,8 +41,7 @@ function region:update(dt)
   region.display.y2 = _.lerp(region.display.y2, region.y2, dt * 10)
 
   if regionSize == 0 then
-    print('you lose')
-    love.event.quit()
+    app.hud.lost = true
   end
 end
 
