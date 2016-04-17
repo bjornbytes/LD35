@@ -121,7 +121,7 @@ function hud:draw()
     g.setFont(self.font)
     g.setColor(255, 255, 255)
     local str = math.round(self.scoreDisplay)
-    g.print(str, u * .5 + (app.grid.width / 2) * app.grid.size - g.getFont():getWidth(str), v * .5 - (app.grid.height / 2) * app.grid.size - g.getFont():getHeight() - 4)
+    g.print(str, u * .5 + (app.grid.width / 2) * app.grid.size - g.getFont():getWidth(str), v * .5 - (app.grid.height / 2) * app.grid.size - g.getFont():getHeight() - 42)
   end
 end
 
@@ -136,7 +136,8 @@ function hud:mousereleased(x, y, b)
     local bottom = top + height
     local buttonY = bottom - .08 * v - buttonHeight
     if math.inside(x, y, u * .5 - buttonWidth / 2, buttonY, buttonWidth, buttonHeight) then
-      love.load()
+      self.menu = true
+      self.lost = false
     end
   elseif self.menu then
     local height = .65 * v
