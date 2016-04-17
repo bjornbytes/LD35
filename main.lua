@@ -5,6 +5,7 @@ setmetatable(_G, {
 })
 
 require 'lib/util'
+spine = lib.spine
 _ = lib.lume
 g = love.graphics
 

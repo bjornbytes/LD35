@@ -17,7 +17,26 @@ block.hues = {
 }
 
 block.animationConfig = {
-
+  dir = 'art/animation',
+  scale = .5,
+  offset = {
+    x = 0,
+    y = 30
+  },
+  states = {
+    ['green-idle'] = {
+      loop = true
+    },
+    ['red-idle'] = {
+      loop = true
+    },
+    ['purple-idle'] = {
+      loop = true
+    },
+    ['orange-idle'] = {
+      loop = true
+    }
+  }
 }
 
 block.speed = 2000
@@ -27,7 +46,8 @@ function block:init(color)
   self.rx = love.math.random(app.region.x1, app.region.x2 - 1) * app.grid.size
   self.ry = love.math.random(app.region.y1, app.region.y2 - 1) * app.grid.size
 
-  self.animation = lib.chiro.create(self.animationConfig)
+  self.animation = lib.chiro.create(table.copy(self.animationConfig))
+  self.animation:set(color .. '-idle')
 
   self.angle = math.floor(love.math.random() * 2 * math.pi / (math.pi / 2)) * (math.pi / 2)
   self.timer = self.delay
@@ -43,6 +63,8 @@ function block:init(color)
 end
 
 function block:update(dt)
+  self.animation:update(dt)
+
   if self.static then return end
 
   if not app.grid.animating and self.timer > 0 then
@@ -135,6 +157,8 @@ function block:draw()
     g.rectangle('line', cx - size / 2, cy - size / 2, size, size)
     g.setLineWidth(1)
   end
+
+  self.animation:draw(self.x, self.y)
 
   if not self.static then
     g.pop()
