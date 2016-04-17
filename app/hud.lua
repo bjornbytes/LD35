@@ -43,6 +43,10 @@ function hud:draw()
     local inc = size + .15 * v
     local xx = u * .5 - (inc * (3 - 1) / 2)
 
+    local image = art.oatline
+    local scale = (size * 1.1) / image:getWidth()
+    g.draw(image, xx, v * .5, app.grid.angle, scale, scale, image:getWidth() / 2, image:getHeight() / 2)
+
     local image = art.bg1
     local scale = size / image:getWidth()
     g.draw(image, xx, v * .5, app.grid.angle, scale, scale, image:getWidth() / 2, image:getHeight() / 2)
@@ -52,6 +56,10 @@ function hud:draw()
 
     xx = xx + inc
 
+    local image = art.oatline
+    local scale = (size * 1.1) / image:getWidth()
+    g.draw(image, xx, v * .5, app.grid.angle, scale, scale, image:getWidth() / 2, image:getHeight() / 2)
+
     local image = art.bg2
     local scale = size / image:getWidth()
     g.draw(image, xx, v * .5, app.grid.angle, scale, scale, image:getWidth() / 2, image:getHeight() / 2)
@@ -60,6 +68,10 @@ function hud:draw()
     g.print(str, xx - g.getFont():getWidth(str) / 2, v * .5 - size / 2 - .02 * v - g.getFont():getHeight())
 
     xx = xx + inc
+
+    local image = art.oatline
+    local scale = (size * 1.1) / image:getWidth()
+    g.draw(image, xx, v * .5, app.grid.angle, scale, scale, image:getWidth() / 2, image:getHeight() / 2)
 
     local image = art.bg3
     local scale = size / image:getWidth()
