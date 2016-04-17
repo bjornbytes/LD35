@@ -74,7 +74,6 @@ function block:update(dt)
       app.grid.world:add(self, self.x + 25, self.y + 25, app.grid.size - 50, app.grid.size - 50)
       self.gridX = math.round(self.x / app.grid.size)
       self.gridY = math.round(self.y / app.grid.size)
-      self.angle = math.round(self.angle / (math.pi / 2)) * (math.pi / 2)
       app.grid:setBlock(self.gridX, self.gridY, self)
       app.blocks:matchPattern()
       screenshake = .1
