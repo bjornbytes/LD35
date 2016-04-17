@@ -193,9 +193,11 @@ function block:update(dt)
       lib.flux.to(self, .3, { arrowFactor = 0 }):ease('backin')
 
       if app.blocks:matchPattern() then
-        _.randomchoice({sound.pop1, sound.pop2, sound.pop3, sound.pop4, sound.pop5}):play()
+        sound.amulet:play()
+        --_.randomchoice({sound.pop1, sound.pop2, sound.pop3, sound.pop4, sound.pop5}):play()
       else
-        sound.hit:play()
+        sound.juju:play()
+        --sound.hit:play()
       end
 
       self.fiddleTimer = love.math.random(1, 10)

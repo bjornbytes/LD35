@@ -21,8 +21,13 @@ function grid:update(dt)
 end
 
 function grid:draw()
-  g.setColor(255, 255, 255)
+  local image = art.oatline
+  local scale = ((grid.width * grid.size) + 80) / image:getWidth()
+  --g.draw(image, grid.width * grid.size / 2, grid.height * grid.size / 2, 0, scale, scale, image:getWidth() / 2, image:getHeight() / 2)
+  g.setColor(68, 68, 68)
+  g.rectangle('fill', -40, -40, app.grid.width * app.grid.size + 80, app.grid.width * app.grid.size + 80, 32, 32)
 
+  g.setColor(255, 255, 255)
   local image = self.backgrounds[level]
   local scale = (grid.width * grid.size) / image:getWidth()
   g.draw(image, 0, 0, 0, scale, scale)

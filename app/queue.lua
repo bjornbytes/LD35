@@ -1,5 +1,10 @@
 local queue = {}
 queue.capacity = 3
+queue.decayRates = {
+  sky = 90,
+  water = 75,
+  newmexico = 60
+}
 
 function queue:init()
   self.items = {}
@@ -17,7 +22,7 @@ function queue:update(dt)
   end
 
   if self.rate > 1.35 then
-    self.rate = self.rate - (dt / 60)
+    self.rate = self.rate - (dt / self.decayRates[level])
   end
 end
 
