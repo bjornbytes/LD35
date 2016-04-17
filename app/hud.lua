@@ -4,6 +4,11 @@ function hud:init()
   self.lost = false
   self.titleFont = fonts.avenir(.066 * g.getHeight())
   self.font = fonts.avenir(.05 * g.getHeight())
+  self.scoreDisplay = score
+end
+
+function hud:update(dt)
+  self.scoreDisplay = _.lerp(self.scoreDisplay, score, 10 * dt)
 end
 
 function hud:draw()
@@ -43,6 +48,11 @@ function hud:draw()
 
     g.setColor(255, 255, 255)
     g.print(str, u * .5 - g.getFont():getWidth(str) / 2 - nudge, buttonY + buttonHeight / 2 - g.getFont():getHeight() / 2 - nudge)
+  else
+    g.setFont(self.font)
+    g.setColor(255, 255, 255)
+    local str = math.round(self.scoreDisplay)
+    g.print(str, u * .5 + (app.grid.width / 2) * app.grid.size - g.getFont():getWidth(str), v * .5 - (app.grid.height / 2) * app.grid.size - g.getFont():getHeight() - 4)
   end
 end
 

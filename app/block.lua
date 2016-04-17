@@ -77,6 +77,7 @@ function block:update(dt)
       app.grid:setBlock(self.gridX, self.gridY, self)
       app.blocks:matchPattern()
       screenshake = .1
+      score = score + 1
     end
   else
     self:setPosition()

@@ -29,6 +29,8 @@ function love.update(dt)
     app.blocks:update(dt)
   end
 
+  app.hud:update(dt)
+
   screenshake = math.max(screenshake - dt, 0)
 end
 
