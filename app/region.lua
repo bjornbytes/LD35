@@ -12,6 +12,8 @@ function region:init()
     x2 = region.x2,
     y2 = region.y2
   }
+
+  region.danger = false
 end
 
 function region:update(dt)
@@ -39,6 +41,8 @@ function region:update(dt)
   regionSize = regionSize - 1
   setBounds(regionSize)
 
+  region.danger = regionSize <= 2
+
   region.display.x1 = _.lerp(region.display.x1, region.x1, dt * 10)
   region.display.y1 = _.lerp(region.display.y1, region.y1, dt * 10)
   region.display.x2 = _.lerp(region.display.x2, region.x2, dt * 10)
@@ -62,7 +66,7 @@ function region:update(dt)
 end
 
 function region:draw()
-  g.setColor(255, 255, 255, 80)
+  g.setColor(self.danger and {255, 100, 100, 80} or {255, 255, 255, 80})
   local w = (region.display.x2 - region.display.x1) * app.grid.size
   local h = (region.display.y2 - region.display.y1) * app.grid.size
   g.rectangle('fill', region.display.x1 * app.grid.size, region.display.y1 * app.grid.size, w, h)

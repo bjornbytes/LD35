@@ -31,7 +31,7 @@ block.animationConfig = {
     },
 
     gem = {
-      loop = false
+      loop = true
     },
 
     ['green-idle'] = {
@@ -135,6 +135,10 @@ function block:init(color)
 
   self.scale = 0
   lib.flux.to(self, .3, { scale = 1, arrowFactor = 1 }):ease('backout')
+
+  local sound = _.randomchoice({sound.pop1, sound.pop2, sound.pop3, sound.pop4, sound.pop5})
+  sound:play()
+  sound:setVolume(.5)
 
   self.static = false
 end
