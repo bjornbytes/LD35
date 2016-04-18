@@ -17,7 +17,7 @@ function particle:init(x, y, color)
   self.y = self.y + app.grid.size / 2
 
   self.angle = love.math.random() * 2 * math.pi
-  self.scale = love.math.random(8, 12)
+  self.scale = love.math.random(12, 24)
   self.opacity = 1
   if color == 'gem' then
     self.color = { love.math.random(150, 255), love.math.random(150, 255), love.math.random(150, 255) }
