@@ -54,7 +54,7 @@ function hud:draw()
 
     g.setColor(255, 255, 255)
     g.setFont(self.titleFont)
-    local str = 'This Game Has a Name I Promise'
+    local str = 'Quadra'
     g.setColor(0, 0, 0)
     g.print(str, u * .5 - g.getFont():getWidth(str) / 2 + 1, top + .02 * v + 1)
     g.setColor(255, 255, 255)
