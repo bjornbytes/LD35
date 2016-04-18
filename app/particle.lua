@@ -46,7 +46,7 @@ end
 
 function particle:draw()
   local color = self.color
-  local image = art.star2
+  local image = art.star
   local scale = (self.scale * 2) / image:getWidth()
   g.setColor(color[1], color[2], color[3], self.opacity * 255)
   g.draw(image, self.x, self.y, self.angle, scale, scale, image:getWidth() / 2, image:getHeight() / 2)
