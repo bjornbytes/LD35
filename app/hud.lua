@@ -166,7 +166,7 @@ function hud:draw()
     local str = 'Game Over'
     g.print(str, u * .5 - g.getFont():getWidth(str) / 2, top + .075 * v)
 
-    if true or self.gotHighscore then
+    if self.gotHighscore then
       g.setFont(self.smallFont)
       local str = 'New Highscore!'
       g.setColor(255, 255, 255, 127 + 90 * math.sin(tick / 12))
