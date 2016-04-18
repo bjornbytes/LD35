@@ -25,6 +25,8 @@ end
 function love.load()
   level = 'sky'
 
+  muted = false
+
   score = 0
   screenshake = 0
   tick = 1
@@ -46,6 +48,8 @@ end
 function love.update(dt)
   tick = tick + 1
   lib.flux.update(dt)
+
+  if app.hud.lost or app.hud.menu then paused = false end
 
   if not app.hud.lost and not app.hud.menu and not paused then
     app.grid:update(dt)
@@ -120,6 +124,13 @@ function love.keypressed(key)
 
   if key == 'p' then
     paused = not paused
+  elseif key == 'm' then
+    muted = not muted
+    if muted then
+      background:pause()
+    else
+      background:resume()
+    end
   elseif key == 'left' and not blockIsMoving then
     app.grid.animating = true
     app.grid.targetAngle = (app.grid.targetAngle or app.grid.angle) - math.pi / 2

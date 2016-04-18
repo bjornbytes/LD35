@@ -225,7 +225,7 @@ function hud:mousereleased(x, y, b)
       self.menu = true
       self.lost = false
       self.gotHighscore = false
-      sound.juju:play()
+      if not muted then sound.juju:play() end
     end
   elseif self.menu then
     local height = .65 * v
@@ -250,7 +250,7 @@ function hud:mousereleased(x, y, b)
       self.menu = false
       startGame()
 
-      sound.juju:play()
+      if not muted then sound.juju:play() end
 
       return
     end
@@ -270,7 +270,7 @@ function hud:mousereleased(x, y, b)
       self.menu = false
       startGame()
 
-      sound.juju:play()
+      if not muted then sound.juju:play() end
 
       return
     end
@@ -290,7 +290,7 @@ function hud:mousereleased(x, y, b)
       self.menu = false
       startGame()
 
-      sound.juju:play()
+      if not muted then sound.juju:play() end
 
       return
     end

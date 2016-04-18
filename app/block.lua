@@ -199,13 +199,15 @@ function block:update(dt)
       lib.flux.to(self, .3, { arrowFactor = 0 }):ease('backin')
 
       if app.blocks:matchPattern() then
-        sound.amulet:play()
+        if not muted then
+          sound.amulet:play()
+        end
         screenshake = .25
       else
-        --_.randomchoice({sound.pop1, sound.pop2, sound.pop3, sound.pop4, sound.pop5}):play()
-        sound.juju:play()
+        if not muted then
+          sound.juju:play()
+        end
         screenshake = .15
-        --sound.hit:play()
       end
 
       self.fiddleTimer = love.math.random(1, 10)
