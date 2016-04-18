@@ -16,6 +16,7 @@ function particle:init(x, y, color)
   self.x = self.x + app.grid.size / 2
   self.y = self.y + app.grid.size / 2
 
+  self.angle = love.math.random() * 2 * math.pi
   self.scale = love.math.random(8, 12)
   self.opacity = 1
   if color == 'gem' then
@@ -46,7 +47,10 @@ end
 function particle:draw()
   local color = self.color
   g.setColor(color[1], color[2], color[3], self.opacity * 255)
-  g.circle('fill', self.x, self.y, self.scale)
+  --g.circle('fill', self.x, self.y, self.scale)
+  local image = art.star
+  local scale = (self.scale * 2) / image:getWidth()
+  g.draw(image, self.x, self.y, self.angle, scale, scale, image:getWidth() / 2, image:getHeight() / 2)
 end
 
 return particle
