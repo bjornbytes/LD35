@@ -39,6 +39,8 @@ function love.load()
   app.hud:init()
 
   app.hud.menu = true
+  app.hud.transform = -g.getHeight()
+  lib.flux.to(app.hud, .5, { transform = 0 }):ease('expoout')
 
   background = sound.background:play()
   background:setLooping(true)

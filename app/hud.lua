@@ -47,6 +47,9 @@ function hud:draw()
   love.mouse.setCursor()
 
   if self.menu then
+    g.push()
+    g.translate(0, self.transform)
+
     g.setColor(0, 0, 0, 192)
     local height = .65 * v
     local top = v * .5 - (height / 2)
@@ -149,6 +152,8 @@ function hud:draw()
     local str = self.highscores.newmexico
     g.print(str, xx - g.getFont():getWidth(str) / 2, v * .5 + size / 2 + .02 * v)
 
+    g.pop()
+
     return
   end
 
@@ -225,6 +230,8 @@ function hud:mousereleased(x, y, b)
       self.menu = true
       self.lost = false
       self.gotHighscore = false
+      self.transform = -v
+      lib.flux.to(self, .5, { transform = 0 }):ease('expoout')
       if not muted then sound.juju:play() end
     end
   elseif self.menu then
