@@ -1,5 +1,5 @@
 {
-"skeleton": { "hash": "x1wbzFRQUZQ+uVC2oaTb1k27w0g", "spine": "2.1.18", "width": 549.99, "height": 520.99 },
+"skeleton": { "hash": "WB/MuTuYTTS4NuIrmjyyPXtugp0", "spine": "2.1.18", "width": 549.99, "height": 520.99 },
 "bones": [
 	{ "name": "root" },
 	{ "name": "body", "parent": "root", "length": 75.98, "x": -1.73, "y": -188.32, "rotation": 89.54 },
@@ -424,26 +424,22 @@
 		"slots": {
 			"body": {
 				"attachment": [
-					{ "time": 0, "name": "body-blue" },
-					{ "time": 2.0333, "name": "body-green" }
+					{ "time": 0, "name": "body-blue" }
 				]
 			},
 			"lefteyebrow": {
 				"attachment": [
-					{ "time": 0, "name": "lefteyebrow-blue" },
-					{ "time": 2.0333, "name": "lefteyebrow-green" }
+					{ "time": 0, "name": "lefteyebrow-blue" }
 				]
 			},
 			"lefteyelashes": {
 				"attachment": [
-					{ "time": 0, "name": null },
-					{ "time": 2.0333, "name": null }
+					{ "time": 0, "name": null }
 				]
 			},
 			"mouth": {
 				"attachment": [
-					{ "time": 0, "name": "mouth-blue" },
-					{ "time": 2.0333, "name": "mouth-green" }
+					{ "time": 0, "name": "mouth-blue" }
 				]
 			},
 			"righteye-purple": {
@@ -453,14 +449,12 @@
 			},
 			"righteyebrow": {
 				"attachment": [
-					{ "time": 0, "name": "righteyebrow-blue" },
-					{ "time": 2.0333, "name": "righteyebrow-green" }
+					{ "time": 0, "name": "righteyebrow-blue" }
 				]
 			},
 			"righteyelashes": {
 				"attachment": [
-					{ "time": 0, "name": null },
-					{ "time": 2.0333, "name": null }
+					{ "time": 0, "name": null }
 				]
 			}
 		},
@@ -1061,26 +1055,22 @@
 		"slots": {
 			"body": {
 				"attachment": [
-					{ "time": 0, "name": "body-green" },
-					{ "time": 2.0333, "name": "body-green" }
+					{ "time": 0, "name": "body-green" }
 				]
 			},
 			"lefteyebrow": {
 				"attachment": [
-					{ "time": 0, "name": "lefteyebrow-green" },
-					{ "time": 2.0333, "name": "lefteyebrow-green" }
+					{ "time": 0, "name": "lefteyebrow-green" }
 				]
 			},
 			"lefteyelashes": {
 				"attachment": [
-					{ "time": 0, "name": null },
-					{ "time": 2.0333, "name": null }
+					{ "time": 0, "name": null }
 				]
 			},
 			"mouth": {
 				"attachment": [
-					{ "time": 0, "name": "mouth-green" },
-					{ "time": 2.0333, "name": "mouth-green" }
+					{ "time": 0, "name": "mouth-green" }
 				]
 			},
 			"righteye-purple": {
@@ -1090,14 +1080,12 @@
 			},
 			"righteyebrow": {
 				"attachment": [
-					{ "time": 0, "name": "righteyebrow-green" },
-					{ "time": 2.0333, "name": "righteyebrow-green" }
+					{ "time": 0, "name": "righteyebrow-green" }
 				]
 			},
 			"righteyelashes": {
 				"attachment": [
-					{ "time": 0, "name": null },
-					{ "time": 2.0333, "name": null }
+					{ "time": 0, "name": null }
 				]
 			}
 		},
@@ -2090,8 +2078,7 @@
 		"slots": {
 			"body": {
 				"attachment": [
-					{ "time": 0, "name": "body-purple" },
-					{ "time": 2.0333, "name": "body-green" }
+					{ "time": 0, "name": "body-purple" }
 				]
 			},
 			"lefteye-blue": {
@@ -2116,20 +2103,17 @@
 			},
 			"lefteyebrow": {
 				"attachment": [
-					{ "time": 0, "name": null },
-					{ "time": 2.0333, "name": "lefteyebrow-green" }
+					{ "time": 0, "name": null }
 				]
 			},
 			"lefteyelashes": {
 				"attachment": [
-					{ "time": 0, "name": null },
-					{ "time": 2.0333, "name": null }
+					{ "time": 0, "name": null }
 				]
 			},
 			"mouth": {
 				"attachment": [
-					{ "time": 0, "name": "mouth-purple" },
-					{ "time": 2.0333, "name": "mouth-green" }
+					{ "time": 0, "name": "mouth-purple" }
 				]
 			},
 			"righteye-blue": {
@@ -2171,14 +2155,12 @@
 					{ "time": 0, "name": null },
 					{ "time": 0.1333, "name": "righteyebrow-purple" },
 					{ "time": 0.7, "name": "righteyebrow-purple" },
-					{ "time": 0.7333, "name": null },
-					{ "time": 2.0333, "name": "righteyebrow-green" }
+					{ "time": 0.7333, "name": null }
 				]
 			},
 			"righteyelashes": {
 				"attachment": [
-					{ "time": 0, "name": null },
-					{ "time": 2.0333, "name": null }
+					{ "time": 0, "name": null }
 				]
 			}
 		},
@@ -2632,26 +2614,22 @@
 		"slots": {
 			"body": {
 				"attachment": [
-					{ "time": 0, "name": "body-red" },
-					{ "time": 2.0333, "name": "body-green" }
+					{ "time": 0, "name": "body-red" }
 				]
 			},
 			"lefteyebrow": {
 				"attachment": [
-					{ "time": 0, "name": "lefteyebrow-red" },
-					{ "time": 2.0333, "name": "lefteyebrow-green" }
+					{ "time": 0, "name": "lefteyebrow-red" }
 				]
 			},
 			"lefteyelashes": {
 				"attachment": [
-					{ "time": 0, "name": "lefteyelashes" },
-					{ "time": 2.0333, "name": null }
+					{ "time": 0, "name": "lefteyelashes" }
 				]
 			},
 			"mouth": {
 				"attachment": [
-					{ "time": 0, "name": "mouth-red" },
-					{ "time": 2.0333, "name": "mouth-green" }
+					{ "time": 0, "name": "mouth-red" }
 				]
 			},
 			"righteye-purple": {
@@ -2661,14 +2639,12 @@
 			},
 			"righteyebrow": {
 				"attachment": [
-					{ "time": 0, "name": "righteyebrow-red" },
-					{ "time": 2.0333, "name": "righteyebrow-green" }
+					{ "time": 0, "name": "righteyebrow-red" }
 				]
 			},
 			"righteyelashes": {
 				"attachment": [
-					{ "time": 0, "name": "righteyelashes" },
-					{ "time": 2.0333, "name": null }
+					{ "time": 0, "name": "righteyelashes" }
 				]
 			}
 		},
