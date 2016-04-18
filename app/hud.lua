@@ -7,6 +7,11 @@ function hud:init()
   self.font = fonts.avenir(.05 * g.getHeight())
   self.smallFont = fonts.avenir(.033 * g.getHeight())
   self.scoreDisplay = score
+  self.lastScoreDisplay = score
+  self.shouldLerpScore = true
+  self.gotHighscore = false
+
+  self.transform = 0
 
   self.handCursor = love.mouse.getSystemCursor('hand')
 
@@ -21,7 +26,18 @@ function hud:init()
 end
 
 function hud:update(dt)
-  self.scoreDisplay = _.lerp(self.scoreDisplay, score, 10 * dt)
+  self.lastScoreDisplay = self.scoreDisplay
+
+  if self.lost then
+    if self.shouldLerpScore then
+      self.scoreDisplay = _.lerp(self.scoreDisplay, score, 4 * dt)
+      if math.round(self.lastScoreDisplay) < math.round(self.scoreDisplay) then
+        sound.juju:play():setPitch(self.scoreDisplay / score)
+      end
+    end
+  else
+    self.scoreDisplay = _.lerp(self.scoreDisplay, score, 10 * dt)
+  end
 end
 
 function hud:draw()
@@ -136,6 +152,9 @@ function hud:draw()
     return
   end
 
+  g.push()
+  g.translate(0, self.transform)
+
   if self.lost then
     g.setColor(0, 0, 0, 192)
     local height = .55 * v
@@ -145,11 +164,19 @@ function hud:draw()
     g.setColor(255, 255, 255)
     g.setFont(self.titleFont)
     local str = 'Game Over'
-    g.print(str, u * .5 - g.getFont():getWidth(str) / 2, top + .08 * v)
+    g.print(str, u * .5 - g.getFont():getWidth(str) / 2, top + .075 * v)
+
+    if self.gotHighscore then
+      g.setFont(self.smallFont)
+      local str = 'New Highscore!'
+      g.setColor(255, 255, 255, 127 + 90 * math.sin(tick / 12))
+      g.print(str, u * .5 - g.getFont():getWidth(str) / 2, (top + .075 * v + self.titleFont:getHeight() + v * .5 - self.font:getHeight() / 2) / 2 - g.getFont():getHeight() / 2)
+      g.setColor(255, 255, 255)
+    end
 
     g.setFont(self.font)
 
-    local str = tostring(score)
+    local str = tostring(math.round(self.scoreDisplay))
     g.print(str, u * .5 - g.getFont():getWidth(str) / 2, v * .5 - g.getFont():getHeight() / 2)
 
     local width = .208 * v
@@ -162,6 +189,10 @@ function hud:draw()
     g.setLineWidth(3)
     g.rectangle('line', u * .5 - width / 2, buttonY, width, buttonHeight, 8, 8)
     g.setLineWidth(1)
+
+    if math.inside(mx, my, u * .5 - width / 2, buttonY, width, buttonHeight) then
+      love.mouse.setCursor(self.handCursor)
+    end
 
     local str = 'Menu'
     local nudge = 4
@@ -176,6 +207,8 @@ function hud:draw()
     local str = math.round(self.scoreDisplay)
     g.print(str, u * .5 + (app.grid.width / 2) * app.grid.size - g.getFont():getWidth(str), v * .5 - (app.grid.height / 2) * app.grid.size - g.getFont():getHeight() - 42)
   end
+
+  g.pop()
 end
 
 function hud:mousereleased(x, y, b)
@@ -191,6 +224,7 @@ function hud:mousereleased(x, y, b)
     if math.inside(x, y, u * .5 - buttonWidth / 2, buttonY, buttonWidth, buttonHeight) then
       self.menu = true
       self.lost = false
+      self.gotHighscore = false
       sound.juju:play()
     end
   elseif self.menu then

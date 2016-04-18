@@ -46,7 +46,17 @@ function region:update(dt)
 
   if regionSize == 0 then
     app.hud.lost = true
-    app.hud.highscores[level] = math.max(app.hud.highscores[level], score)
+    app.hud.transform = -g.getHeight()
+    app.hud.scoreDisplay = 0
+    app.hud.shouldLerpScore = false
+    screenshake = .35
+    lib.flux.to(app.hud, .5, { transform = 0 }):ease('expoinout'):oncomplete(function()
+      app.hud.shouldLerpScore = true
+    end)
+    if score > app.hud.highscores[level] then
+      app.hud.highscores[level] = math.max(app.hud.highscores[level], score)
+      app.hud.gotHighscore = true
+    end
     love.filesystem.write(level .. '.txt', app.hud.highscores[level])
   end
 end

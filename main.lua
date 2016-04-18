@@ -13,6 +13,7 @@ function startGame()
   score = 0
   screenshake = 0
   tick = 1
+  paused = false
 
   app.grid.init()
   app.region.init()
@@ -46,7 +47,7 @@ function love.update(dt)
   tick = tick + 1
   lib.flux.update(dt)
 
-  if not app.hud.lost and not app.hud.menu then
+  if not app.hud.lost and not app.hud.menu and not paused then
     app.grid:update(dt)
     app.region:update(dt)
     app.queue:update(dt)
@@ -117,7 +118,9 @@ function love.keypressed(key)
     end
   end)
 
-  if key == 'left' and not blockIsMoving then
+  if key == 'p' then
+    paused = not paused
+  elseif key == 'left' and not blockIsMoving then
     app.grid.animating = true
     app.grid.targetAngle = (app.grid.targetAngle or app.grid.angle) - math.pi / 2
     lib.flux.to(app.grid, .35, { angle = app.grid.targetAngle })

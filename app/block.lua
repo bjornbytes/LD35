@@ -200,9 +200,11 @@ function block:update(dt)
 
       if app.blocks:matchPattern() then
         sound.amulet:play()
+        screenshake = .25
       else
         --_.randomchoice({sound.pop1, sound.pop2, sound.pop3, sound.pop4, sound.pop5}):play()
         sound.juju:play()
+        screenshake = .15
         --sound.hit:play()
       end
 
@@ -212,7 +214,6 @@ function block:update(dt)
         self.animation:set(self.color .. '-land')
       end
 
-      screenshake = .15
       score = score + 1
     end
   else
