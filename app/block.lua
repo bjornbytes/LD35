@@ -14,7 +14,7 @@ block.hues = {
   green = { 135, 175, 121 },
   red = { 163, 87, 87 },
   blue = { 91, 123, 159 },
-  gem = { 168, 64, 207 }
+  gem = { 235, 85, 177 }
 }
 
 block.animationConfig = {
@@ -201,8 +201,8 @@ function block:update(dt)
       if app.blocks:matchPattern() then
         sound.amulet:play()
       else
-        _.randomchoice({sound.pop1, sound.pop2, sound.pop3, sound.pop4, sound.pop5}):play()
-        --sound.juju:play()
+        --_.randomchoice({sound.pop1, sound.pop2, sound.pop3, sound.pop4, sound.pop5}):play()
+        sound.juju:play()
         --sound.hit:play()
       end
 
@@ -251,9 +251,9 @@ function block:draw()
     local size = _.lerp(app.grid.size, app.grid.size * 2, factor)
     local alpha = 255 * (1 - factor)
     local color = app.block.hues[app.queue.items[1].color]
-    g.setLineWidth(5)
+    g.setLineWidth(8)
     g.setColor(color[1], color[2], color[3], alpha)
-    g.rectangle('line', cx - size / 2, cy - size / 2, size, size)
+    g.rectangle('line', cx - size / 2, cy - size / 2, size, size, 8, 8)
     g.setLineWidth(1)
   end
 
