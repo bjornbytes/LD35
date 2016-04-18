@@ -125,6 +125,7 @@ function love.keypressed(key)
       :oncomplete(function()
         app.grid.animating = false
       end)
+    sound.switch:play():setVolume(1.5)
   elseif key == 'right' and not blockIsMoving then
     app.grid.animating = true
     app.grid.targetAngle = (app.grid.targetAngle or app.grid.angle) + math.pi / 2
@@ -133,6 +134,7 @@ function love.keypressed(key)
       :oncomplete(function()
         app.grid.animating = false
       end)
+    sound.switch:play():setVolume(1.5)
   elseif key == 'space' and not app.hud.menu and not app.hud.lost then
     _.each(app.blocks.list, function(block)
       block.timer = 0

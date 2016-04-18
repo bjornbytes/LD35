@@ -8,6 +8,8 @@ function hud:init()
   self.smallFont = fonts.avenir(.033 * g.getHeight())
   self.scoreDisplay = score
 
+  self.handCursor = love.mouse.getSystemCursor('hand')
+
   local sky = love.filesystem.read('sky.txt')
   local water = love.filesystem.read('water.txt')
   local newmexico = love.filesystem.read('newmexico.txt')
@@ -24,6 +26,9 @@ end
 
 function hud:draw()
   local u, v = g.getDimensions()
+  local mx, my = love.mouse.getPosition()
+
+  love.mouse.setCursor()
 
   if self.menu then
     g.setColor(0, 0, 0, 192)
@@ -52,13 +57,23 @@ function hud:draw()
     local inc = size + .15 * v
     local xx = u * .5 - (inc * (3 - 1) / 2)
 
+    local hover = math.inside(mx, my, xx - size / 2, v * .5 - size / 2, size, size)
+
     local image = art.oatline
-    local scale = (size * 1.1) / image:getWidth()
+    local scale = (size * 1.1 * (hover and 1.1 or 1)) / image:getWidth()
     g.draw(image, xx, v * .5, app.grid.angle, scale, scale, image:getWidth() / 2, image:getHeight() / 2)
 
     local image = art.bg1
-    local scale = size / image:getWidth()
+    local scale = (size * (hover and 1.1 or 1)) / image:getWidth()
     g.draw(image, xx, v * .5, app.grid.angle, scale, scale, image:getWidth() / 2, image:getHeight() / 2)
+
+    if math.inside(mx, my, xx - size / 2, v * .5 - size / 2, size, size) then
+      glsl.colorize:send('color', {1, 1, 1, .25})
+      g.setShader(glsl.colorize)
+      g.draw(image, xx, v * .5, app.grid.angle, scale, scale, image:getWidth() / 2, image:getHeight() / 2)
+      g.setShader()
+      love.mouse.setCursor(self.handCursor)
+    end
 
     local str = 'Simple Skies'
     g.print(str, xx - g.getFont():getWidth(str) / 2, v * .5 - size / 2 - .02 * v - g.getFont():getHeight())
@@ -68,13 +83,23 @@ function hud:draw()
 
     xx = xx + inc
 
+    local hover = math.inside(mx, my, xx - size / 2, v * .5 - size / 2, size, size)
+
     local image = art.oatline
-    local scale = (size * 1.1) / image:getWidth()
+    local scale = (size * 1.1 * (hover and 1.1 or 1)) / image:getWidth()
     g.draw(image, xx, v * .5, app.grid.angle, scale, scale, image:getWidth() / 2, image:getHeight() / 2)
 
     local image = art.bg2
-    local scale = size / image:getWidth()
+    local scale = (size * (hover and 1.1 or 1)) / image:getWidth()
     g.draw(image, xx, v * .5, app.grid.angle, scale, scale, image:getWidth() / 2, image:getHeight() / 2)
+
+    if math.inside(mx, my, xx - size / 2, v * .5 - size / 2, size, size) then
+      glsl.colorize:send('color', {1, 1, 1, .25})
+      g.setShader(glsl.colorize)
+      g.draw(image, xx, v * .5, app.grid.angle, scale, scale, image:getWidth() / 2, image:getHeight() / 2)
+      g.setShader()
+      love.mouse.setCursor(self.handCursor)
+    end
 
     local str = 'Onerous Ocean'
     g.print(str, xx - g.getFont():getWidth(str) / 2, v * .5 - size / 2 - .02 * v - g.getFont():getHeight())
@@ -84,13 +109,23 @@ function hud:draw()
 
     xx = xx + inc
 
+    local hover = math.inside(mx, my, xx - size / 2, v * .5 - size / 2, size, size)
+
     local image = art.oatline
-    local scale = (size * 1.1) / image:getWidth()
+    local scale = (size * 1.1 * (hover and 1.1 or 1)) / image:getWidth()
     g.draw(image, xx, v * .5, app.grid.angle, scale, scale, image:getWidth() / 2, image:getHeight() / 2)
 
     local image = art.bg3
-    local scale = size / image:getWidth()
+    local scale = (size * (hover and 1.1 or 1)) / image:getWidth()
     g.draw(image, xx, v * .5, app.grid.angle, scale, scale, image:getWidth() / 2, image:getHeight() / 2)
+
+    if hover then
+      glsl.colorize:send('color', {1, 1, 1, .25})
+      g.setShader(glsl.colorize)
+      g.draw(image, xx, v * .5, app.grid.angle, scale, scale, image:getWidth() / 2, image:getHeight() / 2)
+      g.setShader()
+      love.mouse.setCursor(self.handCursor)
+    end
 
     local str = 'Devastating Desert'
     g.print(str, xx - g.getFont():getWidth(str) / 2, v * .5 - size / 2 - .02 * v - g.getFont():getHeight())
@@ -156,6 +191,7 @@ function hud:mousereleased(x, y, b)
     if math.inside(x, y, u * .5 - buttonWidth / 2, buttonY, buttonWidth, buttonHeight) then
       self.menu = true
       self.lost = false
+      sound.juju:play()
     end
   elseif self.menu then
     local height = .65 * v
@@ -180,6 +216,8 @@ function hud:mousereleased(x, y, b)
       self.menu = false
       startGame()
 
+      sound.juju:play()
+
       return
     end
 
@@ -198,6 +236,8 @@ function hud:mousereleased(x, y, b)
       self.menu = false
       startGame()
 
+      sound.juju:play()
+
       return
     end
 
@@ -215,6 +255,8 @@ function hud:mousereleased(x, y, b)
 
       self.menu = false
       startGame()
+
+      sound.juju:play()
 
       return
     end

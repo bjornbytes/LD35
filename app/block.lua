@@ -200,9 +200,9 @@ function block:update(dt)
 
       if app.blocks:matchPattern() then
         sound.amulet:play()
-        --_.randomchoice({sound.pop1, sound.pop2, sound.pop3, sound.pop4, sound.pop5}):play()
       else
-        sound.juju:play()
+        _.randomchoice({sound.pop1, sound.pop2, sound.pop3, sound.pop4, sound.pop5}):play()
+        --sound.juju:play()
         --sound.hit:play()
       end
 
@@ -290,20 +290,6 @@ function block:setPosition()
   local s = math.sin(d)
   self.x = ((self.rx - ox) * c - (self.ry - oy) * s) + ox
   self.y = ((self.rx - ox) * s + (self.ry - oy) * c) + oy
-end
-
-function block:isOnSameSide(other)
-  local left = self.x <= app.region.x1 * app.grid.size
-  local right = self.x >= app.region.x2 * app.grid.size
-  local otherLeft = other.x <= app.region.x1 * app.grid.size
-  local otherRight = other.x >= app.region.x2 * app.grid.size
-
-  local top = self.x <= app.region.y1 * app.grid.size
-  local bottom = self.x >= app.region.y2 * app.grid.size
-  local otherTop = other.x <= app.region.y1 * app.grid.size
-  local otherBottom = other.x >= app.region.y2 * app.grid.size
-
-  return left == otherLeft and top == otherTop and bottom == otherBottom and right == otherRight
 end
 
 return block
