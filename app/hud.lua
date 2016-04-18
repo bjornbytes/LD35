@@ -8,6 +8,8 @@ function hud:init()
   self.smallFont = fonts.avenir(.033 * g.getHeight())
   self.scoreDisplay = score
 
+  self.transform = 0
+
   self.handCursor = love.mouse.getSystemCursor('hand')
 
   local sky = love.filesystem.read('sky.txt')
@@ -136,6 +138,9 @@ function hud:draw()
     return
   end
 
+  g.push()
+  g.translate(0, self.transform)
+
   if self.lost then
     g.setColor(0, 0, 0, 192)
     local height = .55 * v
@@ -163,6 +168,10 @@ function hud:draw()
     g.rectangle('line', u * .5 - width / 2, buttonY, width, buttonHeight, 8, 8)
     g.setLineWidth(1)
 
+    if math.inside(mx, my, u * .5 - width / 2, buttonY, width, buttonHeight) then
+      love.mouse.setCursor(self.handCursor)
+    end
+
     local str = 'Menu'
     local nudge = 4
     g.setColor(0, 0, 0, 64)
@@ -176,6 +185,8 @@ function hud:draw()
     local str = math.round(self.scoreDisplay)
     g.print(str, u * .5 + (app.grid.width / 2) * app.grid.size - g.getFont():getWidth(str), v * .5 - (app.grid.height / 2) * app.grid.size - g.getFont():getHeight() - 42)
   end
+
+  g.pop()
 end
 
 function hud:mousereleased(x, y, b)
