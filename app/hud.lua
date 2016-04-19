@@ -210,7 +210,7 @@ function hud:draw()
     g.setFont(self.font)
     g.setColor(255, 255, 255)
     local str = math.round(self.scoreDisplay)
-    g.print(str, u * .5 + (app.grid.width / 2) * app.grid.size - g.getFont():getWidth(str), v * .5 - (app.grid.height / 2) * app.grid.size - g.getFont():getHeight() - 42)
+    g.print(str, u * .5 + (app.grid.width / 2) * app.grid.size * drawScale - g.getFont():getWidth(str), v * .5 - (app.grid.height / 2) * app.grid.size * drawScale - g.getFont():getHeight() - 42 * drawScale)
   end
 
   g.pop()

@@ -204,6 +204,10 @@ function block:update(dt)
       self.gridX = math.round(self.x / app.grid.size)
       self.gridY = math.round(self.y / app.grid.size)
 
+      if app.grid:getBlock(self.gridX, self.gridY) then
+        app.blocks:remove(app.grid:getBlock(self.gridX, self.gridY))
+      end
+
       app.grid:setBlock(self.gridX, self.gridY, self)
       self.angle = self.originalAngle - app.grid.angle
       self.angle = math.round(self.angle / (math.pi / 2)) * (math.pi / 2)
