@@ -94,8 +94,12 @@ block.animationConfig = {
   }
 }
 
-block.speed = 2000
-block.delay = 1
+block.speed = 4000
+block.delays = {
+  sky = 1.25,
+  water = 1.125,
+  newmexico = 1
+}
 
 function block:init(color)
   self.rx = love.math.random(app.region.x1, app.region.x2 - 1) * app.grid.size
@@ -123,9 +127,8 @@ function block:init(color)
   end
 
   self.angle = math.floor(love.math.random() * 2 * math.pi / (math.pi / 2)) * (math.pi / 2)
-  self.timer = self.delay
+  self.timer = self.delays[level]
   self.color = color
-  self.wasStatic = false
   self.originalAngle = self.angle
   self.arrowFactor = 0
   self.overlay = 0
@@ -172,12 +175,18 @@ function block:update(dt)
     self.angle = math.round(self.angle / (math.pi / 2)) * (math.pi / 2)
 
     local ox, oy = self.x, self.y
-    if wasStatic then
-      self.x = self.x + math.dx(self.speed * dt, self.angle)
-      self.y = self.y + math.dy(self.speed * dt, self.angle)
-    else
-      self.x = self.x + math.dx(self.speed * dt, self.angle)
-      self.y = self.y + math.dy(self.speed * dt, self.angle)
+    local s = app.grid.size
+    local len = self.speed * dt
+    self.x = ox + math.dx(self.speed * dt, self.angle)
+    self.y = oy + math.dy(self.speed * dt, self.angle)
+
+    while
+      (#app.grid.world:querySegment(ox + s / 2, oy + s / 2, self.x + s / 2, self.y + s / 2) > 0 or
+        self.x < -1 or self.y < -1 or self.x + s > app.grid.width * s + 1 or self.y + s > app.grid.height * s + 1)
+        and len > dt do
+          len = len / 2
+          self.x = ox + math.dx(len, self.angle)
+          self.y = oy + math.dy(len, self.angle)
     end
 
     local hasCollision = false
@@ -191,7 +200,6 @@ function block:update(dt)
       self.y = math.round(self.y / app.grid.size) * app.grid.size
 
       self.static = true
-      self.wasStatic = true
       app.grid.world:add(self, self.x + 8, self.y + 8, app.grid.size - 16, app.grid.size - 16)
       self.gridX = math.round(self.x / app.grid.size)
       self.gridY = math.round(self.y / app.grid.size)
@@ -254,7 +262,7 @@ function block:draw()
   end
 
   if self.timer > 0 then
-    local factor = self.timer / self.delay
+    local factor = self.timer / self.delays[level]
     local size = _.lerp(app.grid.size, app.grid.size * 2, factor)
     local alpha = 255 * (1 - factor)
     local color = app.block.hues[app.queue.items[1].color]

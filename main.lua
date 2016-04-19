@@ -70,8 +70,9 @@ function love.draw()
   g.setColor(50, 50, 50)
   g.rectangle('fill', 0, 0, g.getDimensions())
 
-  local x = g.getWidth() / 2 - (app.grid.width * app.grid.size) / 2
-  local y = g.getHeight() / 2 - (app.grid.height * app.grid.size) / 2
+  drawScale = 1 / ((app.grid.height * app.grid.size) / (.75 * g.getHeight()))
+  local x = g.getWidth() / 2 - ((app.grid.width * app.grid.size) / 2) * drawScale
+  local y = g.getHeight() / 2 - ((app.grid.height * app.grid.size) / 2) * drawScale
 
   g.push()
 
@@ -83,11 +84,14 @@ function love.draw()
   local yy = y + screenshake * love.math.random() * 80 * (love.math.random() < .5 and 1 or -1)
   g.translate(xx, yy)
 
+  g.scale(drawScale)
+
   app.grid:draw()
 
   g.pop()
   g.push()
   g.translate(x, y)
+  g.scale(drawScale)
   app.region:draw()
 
   g.pop()
@@ -98,9 +102,11 @@ function love.draw()
   g.rotate(app.grid.angle)
   g.translate(-g.getWidth() / 2, -g.getHeight() / 2)
 
-  local xx = x + screenshake * love.math.random() * 80 * (love.math.random() < .5 and 1 or -1)
-  local yy = y + screenshake * love.math.random() * 80 * (love.math.random() < .5 and 1 or -1)
+  local xx = x + screenshake * love.math.random() * 100 * (love.math.random() < .5 and 1 or -1) * drawScale
+  local yy = y + screenshake * love.math.random() * 100 * (love.math.random() < .5 and 1 or -1) * drawScale
   g.translate(xx, yy)
+
+  g.scale(drawScale)
 
   app.blocks:drawStatic()
   app.blocks:drawDynamic()
@@ -108,6 +114,7 @@ function love.draw()
   g.pop()
   g.push()
   g.translate(x, y)
+  g.scale(drawScale)
 
   app.particles:draw()
 

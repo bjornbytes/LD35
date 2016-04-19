@@ -5,10 +5,15 @@ queue.decayRates = {
   water = 75,
   newmexico = 60
 }
+queue.rates = {
+  sky = 2.5,
+  water = 2.25,
+  newmexico = 2
+}
 
 function queue:init()
   self.items = {}
-  self.rate = 2
+  self.rate = self.rates[level]
   self.timer = self.rate
   self:fill()
 end
