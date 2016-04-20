@@ -131,6 +131,9 @@ function love.keypressed(key)
     end
   end)
 
+  local animationEasing = 'backout'
+  local animationDuration = .250
+
   if key == 'p' then
     paused = not paused
   elseif key == 'm' then
@@ -143,8 +146,8 @@ function love.keypressed(key)
   elseif key == 'left' and not blockIsMoving then
     app.grid.animating = true
     app.grid.targetAngle = (app.grid.targetAngle or app.grid.angle) - math.pi / 2
-    lib.flux.to(app.grid, .35, { angle = app.grid.targetAngle })
-      :ease('backout')
+    lib.flux.to(app.grid, animationDuration, { angle = app.grid.targetAngle })
+      :ease(animationEasing)
       :oncomplete(function()
         app.grid.animating = false
       end)
@@ -152,8 +155,8 @@ function love.keypressed(key)
   elseif key == 'right' and not blockIsMoving then
     app.grid.animating = true
     app.grid.targetAngle = (app.grid.targetAngle or app.grid.angle) + math.pi / 2
-    lib.flux.to(app.grid, .35, { angle = app.grid.targetAngle })
-      :ease('backout')
+    lib.flux.to(app.grid, animationDuration, { angle = app.grid.targetAngle })
+      :ease(animationEasing)
       :oncomplete(function()
         app.grid.animating = false
       end)
