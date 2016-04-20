@@ -6,245 +6,245 @@ filter: Linear,Linear
 repeat: none
 body-blue
   rotate: false
-  xy: 349, 81
+  xy: 2, 107
   size: 388, 388
   orig: 388, 388
   offset: 0, 0
   index: -1
 body-green
   rotate: false
-  xy: 739, 116
+  xy: 1248, 630
   size: 388, 388
   orig: 388, 388
   offset: 0, 0
   index: -1
 body-orange
   rotate: false
-  xy: 1129, 126
+  xy: 1638, 630
   size: 388, 388
   orig: 388, 388
   offset: 0, 0
   index: -1
 body-purple
   rotate: false
-  xy: 1635, 633
+  xy: 392, 107
   size: 388, 388
   orig: 388, 388
   offset: 0, 0
   index: -1
 body-red
   rotate: false
-  xy: 1635, 243
+  xy: 1248, 240
   size: 388, 388
   orig: 388, 388
   offset: 0, 0
   index: -1
 gem
-  rotate: true
-  xy: 2, 471
+  rotate: false
+  xy: 2, 497
   size: 550, 521
   orig: 550, 521
   offset: 0, 0
   index: -1
 lefteye-blue
   rotate: false
-  xy: 1508, 531
+  xy: 1793, 268
   size: 65, 65
   orig: 65, 65
   offset: 0, 0
   index: -1
 lefteye-brown
   rotate: false
-  xy: 1519, 464
+  xy: 1129, 275
   size: 65, 65
   orig: 65, 65
   offset: 0, 0
   index: -1
 lefteye-purple
   rotate: false
-  xy: 1074, 30
+  xy: 904, 3
   size: 131, 84
   orig: 131, 84
   offset: 0, 0
   index: -1
 lefteyeball
   rotate: false
-  xy: 1377, 636
+  xy: 1888, 493
   size: 135, 135
   orig: 135, 135
   offset: 0, 0
   index: -1
 righteyeball
   rotate: false
-  xy: 1377, 636
+  xy: 1888, 493
   size: 135, 135
   orig: 135, 135
   offset: 0, 0
   index: -1
 lefteyebrow-blue
   rotate: false
-  xy: 1480, 50
+  xy: 161, 31
   size: 153, 74
   orig: 153, 74
   offset: 0, 0
   index: -1
 lefteyebrow-green
   rotate: false
-  xy: 1219, 525
+  xy: 316, 34
   size: 156, 71
   orig: 156, 71
   offset: 0, 0
   index: -1
 lefteyebrow-orange
   rotate: false
-  xy: 1377, 526
+  xy: 1860, 256
   size: 129, 70
   orig: 129, 70
   offset: 0, 0
   index: -1
 lefteyebrow-purple
-  rotate: true
-  xy: 1519, 732
+  rotate: false
+  xy: 1888, 328
   size: 140, 73
   orig: 140, 73
   offset: 0, 0
   index: -1
 lefteyebrow-red
   rotate: false
-  xy: 487, 3
+  xy: 2, 29
   size: 157, 76
   orig: 157, 76
   offset: 0, 0
   index: -1
 lefteyelashes
   rotate: false
-  xy: 2, 13
+  xy: 1196, 298
   size: 38, 42
   orig: 38, 42
   offset: 0, 0
   index: -1
 mouth-blue
   rotate: false
-  xy: 82, 2
+  xy: 2, 15
   size: 90, 12
   orig: 90, 12
   offset: 0, 0
   index: -1
 mouth-green
-  rotate: true
-  xy: 1207, 9
+  rotate: false
+  xy: 1129, 448
   size: 115, 63
   orig: 115, 63
   offset: 0, 0
   index: -1
 mouth-orange
-  rotate: true
-  xy: 1272, 9
+  rotate: false
+  xy: 1129, 383
   size: 115, 63
   orig: 115, 63
   offset: 0, 0
   index: -1
 mouth-purple
   rotate: false
-  xy: 801, 26
+  xy: 1888, 403
   size: 140, 88
   orig: 140, 88
   offset: 0, 0
   index: -1
 mouth-red
   rotate: false
-  xy: 82, 16
+  xy: 1129, 342
   size: 107, 39
   orig: 107, 39
   offset: 0, 0
   index: -1
 righteye-blue
   rotate: false
-  xy: 1519, 397
+  xy: 1129, 208
   size: 65, 65
   orig: 65, 65
   offset: 0, 0
   index: -1
 righteye-brown
   rotate: false
-  xy: 1519, 330
+  xy: 1129, 141
   size: 65, 65
   orig: 65, 65
   offset: 0, 0
   index: -1
 righteye-purple
   rotate: false
-  xy: 943, 29
+  xy: 1037, 2
   size: 129, 85
   orig: 129, 85
   offset: 0, 0
   index: -1
 righteyebrow-blue
   rotate: false
-  xy: 1337, 49
+  xy: 623, 30
   size: 141, 75
   orig: 141, 75
   offset: 0, 0
   index: -1
 righteyebrow-green
   rotate: false
-  xy: 646, 3
+  xy: 1638, 257
   size: 153, 76
   orig: 153, 76
   offset: 0, 0
   index: -1
 righteyebrow-orange
-  rotate: true
-  xy: 1519, 598
+  rotate: false
+  xy: 1638, 183
   size: 132, 72
   orig: 132, 72
   offset: 0, 0
   index: -1
 righteyebrow-purple
   rotate: false
-  xy: 349, 2
+  xy: 766, 10
   size: 136, 77
   orig: 136, 77
   offset: 0, 0
   index: -1
 righteyebrow-red
-  rotate: true
-  xy: 1519, 874
+  rotate: false
+  xy: 474, 32
   size: 147, 73
   orig: 147, 73
   offset: 0, 0
   index: -1
 righteyelashes
   rotate: false
-  xy: 42, 13
+  xy: 1129, 97
   size: 38, 42
   orig: 38, 42
   offset: 0, 0
   index: -1
 shine1
-  rotate: true
-  xy: 1219, 773
+  rotate: false
+  xy: 1638, 335
   size: 248, 293
   orig: 248, 293
   offset: 0, 0
   index: -1
 shine2
   rotate: false
-  xy: 2, 57
+  xy: 782, 89
   size: 345, 412
   orig: 345, 412
   offset: 0, 0
   index: -1
 shine3
   rotate: false
-  xy: 525, 506
+  xy: 554, 503
   size: 354, 515
   orig: 354, 515
   offset: 0, 0
   index: -1
 shine4
   rotate: false
-  xy: 881, 516
+  xy: 910, 513
   size: 336, 505
   orig: 336, 505
   offset: 0, 0
