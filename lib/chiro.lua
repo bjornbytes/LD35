@@ -4,12 +4,14 @@ chiro.__index = chiro
 function chiro.create(config)
   local self = setmetatable(config, chiro)
 
+  self.atlas = spine.Atlas.new(self.dir .. '/' .. self.dir:match('[^%/]+$') .. '.atlas')
+  self.atlasAttachmentLoader = spine.AtlasAttachmentLoader.new(self.atlas)
+
   if self.dir then
-    self.images = self.images or (self.dir .. '/images')
     self.json = self.json or (self.dir .. '/' .. self.dir:match('[^%/]+$') .. '.json')
   end
 
-  self.skeletonJson = spine.SkeletonJson.new()
+  self.skeletonJson = spine.SkeletonJson.new(self.atlasAttachmentLoader)
   self.skeletonJson.scale = self.scale or 1
 
   if type(self.json) == 'table' then
@@ -24,6 +26,10 @@ function chiro.create(config)
     return type(self.images) == 'string' and
       love.graphics.newImage(self.images .. '/' .. attachment.name .. '.png') or
       self.images[attachment.name]
+  end
+
+  self.skeleton.createAtlasImage = function(_, page)
+    return art.animation[page.name:gsub('%.png', '')]
   end
 
   self.animationStateData = spine.AnimationStateData.new(self.skeletonData)

@@ -33,7 +33,7 @@ local AtlasRegion = require 'lib/spine-lua/AtlasRegion'
 
 local Atlas = {}
 
-function Atlas.new(atlas, textureLoader)
+function Atlas.new(path, textureLoader)
   local self = {
     textureLoader = textureLoader,
     pages = {},
@@ -59,7 +59,7 @@ function Atlas.new(atlas, textureLoader)
     return str, unpack(t)
   end
 
-  local line, str = '', atlas
+  local line, str = '', spine.utils.readFile(path)
   if not str then return nil end
   repeat
     line, str = getLine(str)

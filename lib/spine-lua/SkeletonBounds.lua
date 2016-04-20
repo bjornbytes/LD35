@@ -161,7 +161,7 @@ function SkeletonBounds.new ()
 	end
 
 	function self:getPolygon (attachment)
-		local index = utils.indexOf(self.boundingBoxes, attachment)
+		local index = spine.utils.indexOf(self.boundingBoxes, attachment)
 		if index == -1 then
 			return nil
 		else

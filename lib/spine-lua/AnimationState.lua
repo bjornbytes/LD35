@@ -64,7 +64,7 @@ function AnimationState.new (data)
 		end
 
 		self.tracks[index] = entry
-		self.trackCount = math.max(self.trackCount, index + 1)
+		self.trackCount = math.max(self.trackCount, index)
 
 		if entry.onStart then entry.onStart(index) end
 		if self.onStart then self.onStart(index) end
@@ -72,7 +72,7 @@ function AnimationState.new (data)
 
 	function self:update (delta)
 		delta = delta * self.timeScale
-		for i = 0, self.trackCount - 1 do
+		for i = 0, self.trackCount do
 			local current = self.tracks[i]
 			if current then
 				current.time = current.time + delta * current.timeScale
@@ -95,7 +95,7 @@ function AnimationState.new (data)
 	end
 
 	function self:apply(skeleton)
-		for i = 0, self.trackCount - 1 do
+		for i = 0, self.trackCount do
 			local current = self.tracks[i]
 			if current then
 				local time = current.time
@@ -154,7 +154,7 @@ function AnimationState.new (data)
 
 	function self:clearTracks ()
 		for i,current in pairs(self.tracks) do
-			self:clearTrack(i)
+			self.clearTrack(i)
 		end
 		self.tracks = {}
 		self.trackCount = 0
@@ -210,7 +210,7 @@ function AnimationState.new (data)
 			end
 			last.next = entry
 		else
-			setCurrent(trackIndex, entry)
+			self.tracks[trackIndex] = entry
 		end
 
 		delay = delay or 0

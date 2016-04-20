@@ -36,7 +36,7 @@ function AnimationStateData.new (skeletonData)
 	local self = {
 		skeletonData = skeletonData,
 		animationToMixTime = {},
-		defaultMix = .2
+		defaultMix = 0
 	}
 
 	function self:setMix (fromName, toName, duration)

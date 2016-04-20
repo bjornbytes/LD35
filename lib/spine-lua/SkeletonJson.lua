@@ -28,7 +28,6 @@
 -- ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -------------------------------------------------------------------------------
 
-local utils = require "lib/spine-lua/utils"
 local SkeletonData = require "lib/spine-lua/SkeletonData"
 local BoneData = require "lib/spine-lua/BoneData"
 local SlotData = require "lib/spine-lua/SlotData"
@@ -51,7 +50,7 @@ function SkeletonJson.new (attachmentLoader)
 	}
 
 	function self:readSkeletonDataFile (fileName, base)
-		return self:readSkeletonData(utils.readJSON(utils.readFile(fileName, base)))
+		return self:readSkeletonData(spine.utils.readFile(fileName, base))
 	end
 
 	local readAttachment
@@ -59,10 +58,11 @@ function SkeletonJson.new (attachmentLoader)
 	local readCurve
 	local getArray
 
-	function self:readSkeletonData (json)
+	function self:readSkeletonData (jsonText)
 		local skeletonData = SkeletonData.new(self.attachmentLoader)
 
-    root = json
+		local root = spine.utils.readJSON(jsonText)
+		if not root then error("Invalid JSON: " .. jsonText, 2) end
 
 		-- Skeleton.
 		if root["skeleton"] then

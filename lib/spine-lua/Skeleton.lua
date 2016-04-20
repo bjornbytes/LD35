@@ -28,7 +28,6 @@
 -- ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -------------------------------------------------------------------------------
 
-local utils = require "lib/spine-lua/utils"
 local Bone = require "lib/spine-lua/Bone"
 local Slot = require "lib/spine-lua/Slot"
 local IkConstraint = require "lib/spine-lua/IkConstraint"
@@ -229,12 +228,12 @@ function Skeleton.new (skeletonData)
 
 	for i,boneData in ipairs(skeletonData.bones) do
 		local parent
-		if boneData.parent then parent = self.bones[utils.indexOf(skeletonData.bones, boneData.parent)] end
+		if boneData.parent then parent = self.bones[spine.utils.indexOf(skeletonData.bones, boneData.parent)] end
 		table.insert(self.bones, Bone.new(boneData, self, parent))
 	end
 
 	for i,slotData in ipairs(skeletonData.slots) do
-		local bone = self.bones[utils.indexOf(skeletonData.bones, slotData.boneData)]
+		local bone = self.bones[spine.utils.indexOf(skeletonData.bones, slotData.boneData)]
 		local slot = Slot.new(slotData, bone)
 		table.insert(self.slots, slot)
 		self.slotsByName[slot.data.name] = slot
