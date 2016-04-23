@@ -45,6 +45,8 @@ function love.load()
   background = sound.background:play()
   background:setLooping(true)
   background:setVolume(.75)
+
+  g.setBackgroundColor(50, 50, 50)
 end
 
 function love.update(dt)
@@ -67,9 +69,6 @@ function love.update(dt)
 end
 
 function love.draw()
-  g.setColor(50, 50, 50)
-  g.rectangle('fill', 0, 0, g.getDimensions())
-
   drawScale = 1 / ((app.grid.height * app.grid.size) / (.75 * g.getHeight()))
   local x = g.getWidth() / 2 - ((app.grid.width * app.grid.size) / 2) * drawScale
   local y = g.getHeight() / 2 - ((app.grid.height * app.grid.size) / 2) * drawScale

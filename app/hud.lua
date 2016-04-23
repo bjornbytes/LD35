@@ -211,6 +211,14 @@ function hud:draw()
     g.setColor(255, 255, 255)
     local str = math.round(self.scoreDisplay)
     g.print(str, u * .5 + (app.grid.width / 2) * app.grid.size * drawScale - g.getFont():getWidth(str), v * .5 - (app.grid.height / 2) * app.grid.size * drawScale - g.getFont():getHeight() - 42 * drawScale)
+
+    if love.keyboard.isDown('`') then
+      local stats = g.getStats()
+      stats.texturememory = stats.texturememory / (10 ^ 6)
+      stats.fps = love.timer.getFPS()
+      local str = 'drawCalls: ' .. stats.drawcalls .. '\ncanvasSwitches: ' .. stats.canvasswitches .. '\nmemory: ' .. stats.texturememory .. '\nimages: ' .. stats.images .. '\ncanvases: ' .. stats.canvases .. '\nfonts: ' .. stats.fonts .. '\nfps: ' .. stats.fps
+      g.print(str, 0, 0)
+    end
   end
 
   g.pop()
