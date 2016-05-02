@@ -107,8 +107,7 @@ function love.draw()
 
   g.scale(drawScale)
 
-  app.blocks:drawStatic()
-  app.blocks:drawDynamic()
+  app.blocks:draw()
 
   g.pop()
   g.push()
@@ -131,7 +130,7 @@ function love.keypressed(key)
   end)
 
   local animationEasing = 'backout'
-  local animationDuration = .250
+  local animationDuration = .350
 
   if key == 'p' then
     paused = not paused

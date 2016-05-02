@@ -239,6 +239,64 @@ function block:update(dt)
   end
 end
 
+function block:drawArrow()
+  local gridSize = app.grid.size
+  local size = gridSize * self.scale
+
+  if not self.static then
+    g.push()
+    g.translate((self.x + gridSize / 2), (self.y + gridSize / 2))
+    g.rotate(-app.grid.angle)
+    g.translate(-(self.x + gridSize / 2), -(self.y + gridSize / 2))
+  end
+
+  if self.arrowFactor > 0 then
+    local angle = self.static and self.originalAngle - app.grid.angle or self.angle + app.grid.angle
+    local x = self.x + gridSize / 2 + math.dx(size, angle)
+    local y = self.y + gridSize / 2 + math.dy(size, angle)
+    local image = art.arrow
+    local scale = (60 / image:getWidth()) * self.arrowFactor
+    scale = scale * (1 + math.sin(tick / 10) / 10)
+    g.setColor(255, 255, 200, 255 * _.clamp(self.arrowFactor, 0, 1))
+    g.draw(image, x, y, angle, scale, scale, image:getWidth() / 2, image:getHeight() / 2)
+  end
+
+  if not self.static then
+    g.pop()
+  end
+end
+
+function block:drawCursor()
+  local gridSize = app.grid.size
+
+  local size = gridSize * self.scale
+  local image = self.images[self.color]
+  local ox, oy = app.grid.width / 2 * gridSize, app.grid.height / 2 * gridSize
+  local cx, cy = self.x + gridSize / 2, self.y + gridSize / 2
+
+  if not self.static then
+    g.push()
+    g.translate((self.x + gridSize / 2), (self.y + gridSize / 2))
+    g.rotate(-app.grid.angle)
+    g.translate(-(self.x + gridSize / 2), -(self.y + gridSize / 2))
+  end
+
+  if self.timer > 0 then
+    local factor = self.timer / self.delays[level]
+    local size = _.lerp(app.grid.size, app.grid.size * 2, factor)
+    local alpha = 255 * (1 - factor)
+    local color = app.block.hues[app.queue.items[1].color]
+    g.setLineWidth(8)
+    g.setColor(color[1], color[2], color[3], alpha)
+    g.rectangle('line', cx - size / 2, cy - size / 2, size, size, 8, 8)
+    g.setLineWidth(1)
+  end
+
+  if not self.static then
+    g.pop()
+  end
+end
+
 function block:draw()
   local gridSize = app.grid.size
 
@@ -253,28 +311,6 @@ function block:draw()
   local image = self.images[self.color]
   local ox, oy = app.grid.width / 2 * app.grid.size, app.grid.height / 2 * app.grid.size
   local cx, cy = self.x + gridSize / 2, self.y + gridSize / 2
-
-  if self.arrowFactor > 0 then
-    local angle = self.static and self.originalAngle - app.grid.angle or self.angle + app.grid.angle
-    local x = self.x + gridSize / 2 + math.dx(size, angle)
-    local y = self.y + gridSize / 2 + math.dy(size, angle)
-    local image = art.arrow
-    local scale = (60 / image:getWidth()) * self.arrowFactor
-    scale = scale * (1 + math.sin(tick / 10) / 10)
-    g.setColor(255, 255, 200, 255 * _.clamp(self.arrowFactor, 0, 1))
-    g.draw(image, x, y, angle, scale, scale, image:getWidth() / 2, image:getHeight() / 2)
-  end
-
-  if self.timer > 0 then
-    local factor = self.timer / self.delays[level]
-    local size = _.lerp(app.grid.size, app.grid.size * 2, factor)
-    local alpha = 255 * (1 - factor)
-    local color = app.block.hues[app.queue.items[1].color]
-    g.setLineWidth(8)
-    g.setColor(color[1], color[2], color[3], alpha)
-    g.rectangle('line', cx - size / 2, cy - size / 2, size, size, 8, 8)
-    g.setLineWidth(1)
-  end
 
   self.animation.skeleton.a = self.opacity
 

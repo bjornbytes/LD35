@@ -29,12 +29,10 @@ function blocks:update(dt)
   _.each(self.list, 'update', dt)
 end
 
-function blocks:drawStatic()
-  _.each(_.filter(self.list, 'static'), 'draw')
-end
-
-function blocks:drawDynamic()
-  _.each(_.reject(self.list, 'static'), 'draw')
+function blocks:draw()
+  _.each(self.list, 'draw')
+  _.each(self.list, 'drawCursor')
+  _.each(self.list, 'drawArrow')
 end
 
 function blocks:matchPattern()
