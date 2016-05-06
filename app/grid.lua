@@ -31,16 +31,6 @@ function grid:draw()
   local image = self.backgrounds[level]
   local scale = (grid.width * grid.size) / image:getWidth()
   g.draw(image, 0, 0, 0, scale, scale)
-
-  --[[if love.keyboard.isDown('`') then
-    for x = 0, grid.width do
-      g.line(x * grid.size, 0, x * grid.size, grid.height * grid.size)
-    end
-
-    for y = 0, grid.height do
-      g.line(0, y * grid.size, grid.width * grid.size, y * grid.size)
-    end
-  end]]
 end
 
 function grid:cell(x, y)
