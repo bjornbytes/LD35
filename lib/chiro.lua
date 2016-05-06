@@ -1,24 +1,36 @@
 local chiro = {}
 chiro.__index = chiro
 
+-- NOTE THERE CAN ONLY BE ONE SPINE ANIMATION HAHA FUCK YOU FUTURE SELF
+
+local atlas
+local skeletonJson
+local skeletonData
+
 function chiro.create(config)
   local self = setmetatable(config, chiro)
 
-  self.atlas = spine.Atlas.new(self.dir .. '/' .. self.dir:match('[^%/]+$') .. '.atlas')
+  atlas = atlas or spine.Atlas.new(self.dir .. '/' .. self.dir:match('[^%/]+$') .. '.atlas')
+  self.atlas = atlas
   self.atlasAttachmentLoader = spine.AtlasAttachmentLoader.new(self.atlas)
 
   if self.dir then
     self.json = self.json or (self.dir .. '/' .. self.dir:match('[^%/]+$') .. '.json')
   end
 
-  self.skeletonJson = spine.SkeletonJson.new(self.atlasAttachmentLoader)
+  skeletonJson = skeletonJson or spine.SkeletonJson.new(self.atlasAttachmentLoader)
+  self.skeletonJson = skeletonJson
   self.skeletonJson.scale = self.scale or 1
 
-  if type(self.json) == 'table' then
-    self.skeletonData = self.skeletonJson:readSkeletonData(self.json)
-  else
-    self.skeletonData = self.skeletonJson:readSkeletonDataFile(self.json)
+  if not skeletonData then
+    if type(self.json) == 'table' then
+      skeletonData = self.skeletonJson:readSkeletonData(self.json)
+    else
+      skeletonData = self.skeletonJson:readSkeletonDataFile(self.json)
+    end
   end
+
+  self.skeletonData = skeletonData
 
   self.skeleton = spine.Skeleton.new(self.skeletonData)
 
