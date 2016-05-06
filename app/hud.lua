@@ -13,7 +13,9 @@ function hud:init()
 
   self.transform = 0
 
-  self.handCursor = love.mouse.getSystemCursor('hand')
+  if love.system.getOS() == 'OS X' then
+    self.handCursor = love.mouse.getSystemCursor('hand')
+  end
 
   local sky = love.filesystem.read('sky.txt')
   local water = love.filesystem.read('water.txt')

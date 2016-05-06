@@ -121,6 +121,33 @@ function love.draw()
   app.hud:draw()
 end
 
+-- Odd groups got left
+local function turnLeft()
+  app.grid.animating = true
+  app.grid.targetAngle = (app.grid.targetAngle or app.grid.angle) - math.pi / 2
+  lib.flux.to(app.grid, animationDuration, { angle = app.grid.targetAngle })
+    :ease(animationEasing)
+    :oncomplete(function()
+      app.grid.animating = false
+    end)
+  sound.switch:play():setVolume(1.5)
+end
+
+local animationEasing = 'backout'
+local animationDuration = .350
+
+-- Even groups got right
+local function turnRight()
+  app.grid.animating = true
+  app.grid.targetAngle = (app.grid.targetAngle or app.grid.angle) + math.pi / 2
+  lib.flux.to(app.grid, animationDuration, { angle = app.grid.targetAngle })
+    :ease(animationEasing)
+    :oncomplete(function()
+      app.grid.animating = false
+    end)
+  sound.switch:play():setVolume(1.5)
+end
+
 function love.keypressed(key)
   local blockIsMoving
   _.each(app.blocks.list, function(block)
@@ -128,9 +155,6 @@ function love.keypressed(key)
       blockIsMoving = true
     end
   end)
-
-  local animationEasing = 'backout'
-  local animationDuration = .350
 
   if key == 'p' then
     paused = not paused
@@ -142,23 +166,9 @@ function love.keypressed(key)
       background:resume()
     end
   elseif key == 'left' and not blockIsMoving then
-    app.grid.animating = true
-    app.grid.targetAngle = (app.grid.targetAngle or app.grid.angle) - math.pi / 2
-    lib.flux.to(app.grid, animationDuration, { angle = app.grid.targetAngle })
-      :ease(animationEasing)
-      :oncomplete(function()
-        app.grid.animating = false
-      end)
-    sound.switch:play():setVolume(1.5)
+    turnLeft()
   elseif key == 'right' and not blockIsMoving then
-    app.grid.animating = true
-    app.grid.targetAngle = (app.grid.targetAngle or app.grid.angle) + math.pi / 2
-    lib.flux.to(app.grid, animationDuration, { angle = app.grid.targetAngle })
-      :ease(animationEasing)
-      :oncomplete(function()
-        app.grid.animating = false
-      end)
-    sound.switch:play():setVolume(1.5)
+    turnRight()
   elseif key == 'space' and not app.hud.menu and not app.hud.lost then
     _.each(app.blocks.list, function(block)
       block.timer = 0
@@ -168,4 +178,8 @@ end
 
 function love.mousereleased(x, y, b)
   app.hud:mousereleased(x, y, b)
+end
+
+function love.touchreleased()
+  turnRight()
 end
