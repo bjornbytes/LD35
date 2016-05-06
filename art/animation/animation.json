@@ -1,5 +1,5 @@
 {
-"skeleton": { "hash": "0QFt9wsUUtK1vGUVcN6dkO0rcFw", "spine": "2.1.18", "width": 549.99, "height": 520.99 },
+"skeleton": { "hash": "bdHSKLMzNdfHR0ARqD8X+kssTis", "spine": "2.1.18", "width": 387.99, "height": 367.99 },
 "bones": [
 	{ "name": "root" },
 	{ "name": "body", "parent": "root", "length": 75.98, "x": -1.73, "y": -188.32, "rotation": 89.54 },
@@ -36,13 +36,13 @@
 			"body-orange": { "x": 188.49, "y": -1.06, "rotation": -89.54, "width": 388, "height": 388 },
 			"body-purple": { "x": 188.49, "y": -1.06, "rotation": -89.54, "width": 388, "height": 388 },
 			"body-red": { "x": 188.71, "y": 0.73, "rotation": -89.54, "width": 388, "height": 388 },
-			"gem": { "x": 185.41, "y": 1.45, "rotation": -89.54, "width": 550, "height": 521 }
+			"gem": { "x": 185.41, "y": 1.45, "rotation": -89.54, "width": 388, "height": 368 }
 		},
 		"gemshine": {
-			"shine1": { "x": 298.84, "y": 152.36, "rotation": -89.54, "width": 248, "height": 293 },
-			"shine2": { "x": 239.6, "y": 48.54, "rotation": -89.54, "width": 345, "height": 412 },
-			"shine3": { "x": 188.03, "y": -34.07, "rotation": -89.54, "width": 354, "height": 515 },
-			"shine4": { "x": 178.59, "y": -105.25, "rotation": -89.54, "width": 336, "height": 505 }
+			"shine1": { "x": 265.43, "y": 109.47, "rotation": -89.54, "width": 175, "height": 207 },
+			"shine2": { "x": 221.95, "y": 34.19, "rotation": -89.54, "width": 244, "height": 292 },
+			"shine3": { "x": 187.94, "y": -23.41, "rotation": -89.54, "width": 251, "height": 364 },
+			"shine4": { "x": 180.11, "y": -73.27, "rotation": -89.54, "width": 238, "height": 357 }
 		},
 		"lefteye-blue": {
 			"lefteye-blue": { "x": -8.3, "y": -4.86, "rotation": 102.88, "width": 65, "height": 65 }
@@ -664,6 +664,7 @@
 			},
 			"gemshine": {
 				"attachment": [
+					{ "time": 0, "name": null },
 					{ "time": 0.0666, "name": null },
 					{ "time": 0.1, "name": "shine1" },
 					{ "time": 0.1666, "name": "shine2" },
